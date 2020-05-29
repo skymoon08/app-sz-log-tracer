@@ -27,8 +27,6 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * AbstractSzTracerStatisticReporter
  *
- * @author yangguanchao
- * @since 2017/06/26
  */
 public abstract class AbstractSzTracerStatisticReporter implements SzTracerStatisticReporter {
 
@@ -37,43 +35,43 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
      * the output interval is a cycle time (how long a cycle can be set, the default is 60s),
      * {@link com.wayyue.tracer.core.reporter.stat.manager.SzTracerStatisticReporterManager#DEFAULT_CYCLE_SECONDS}
      */
-    public static final int            DEFAULT_CYCLE = 0;
+    public static final int DEFAULT_CYCLE = 0;
 
     /**
      * Used to control the concurrency when initializing the slot
      */
-    private static final ReentrantLock initLock      = new ReentrantLock(false);
+    private static final ReentrantLock initLock = new ReentrantLock(false);
 
-    private static XStringBuilder buffer        = new XStringBuilder();
-    private static JsonStringBuilder jsonBuffer    = new JsonStringBuilder();
+    private static XStringBuilder buffer = new XStringBuilder();
+    private static JsonStringBuilder jsonBuffer = new JsonStringBuilder();
 
     /**
      * Whether to turn off stat log print, the default is not closed
      */
     protected AtomicBoolean isClosePrint = new AtomicBoolean(false);
 
-    protected TraceAppender appender      = null;
+    protected TraceAppender appender = null;
 
     /**
      * The name of the stat log
      */
-    protected String                   statTracerName;
+    protected String statTracerName;
 
     /**
      * period time(Unit:second)
      */
-    private long                       periodTime;
-    private String                     rollingPolicy;
-    private String                     logReserveConfig;
+    private long periodTime;
+    private String rollingPolicy;
+    private String logReserveConfig;
     /**
      * Output cycle interval
      */
-    private int                        printCycle    = 0;
+    private int printCycle = 0;
 
     /**
      * The number of cycles currently counted
      */
-    private long                       countCycle    = 0;
+    private long countCycle = 0;
 
     /**
      * "Statistics" scrolling array
@@ -83,7 +81,7 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
     /**
      * The current subscript of the "statistics" scrolling array
      */
-    private int                        currentIndex  = 0;
+    private int currentIndex = 0;
 
     /**
      * Statistical data
@@ -91,14 +89,14 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
     protected Map<StatKey, StatValues> statDatas;
 
     public AbstractSzTracerStatisticReporter(String statTracerName, String rollingPolicy,
-                                               String logReserveConfig) {
+                                             String logReserveConfig) {
         this(statTracerName, SzTracerStatisticReporterManager.DEFAULT_CYCLE_SECONDS,
-            DEFAULT_CYCLE, rollingPolicy, logReserveConfig);
+                DEFAULT_CYCLE, rollingPolicy, logReserveConfig);
     }
 
     public AbstractSzTracerStatisticReporter(String statTracerName, long periodTime,
-                                               int outputCycle, String rollingPolicy,
-                                               String logReserveConfig) {
+                                             int outputCycle, String rollingPolicy,
+                                             String logReserveConfig) {
 
         AssertUtils.hasText(statTracerName, "Statistics tracer name cat't be empty.");
         this.statTracerName = statTracerName;
@@ -116,6 +114,7 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
 
     /**
      * Get the output interval of the stat log
+     *
      * @param defaultCycle default interval is 60s
      * @return
      */
@@ -123,7 +122,7 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
         long cycleTime = defaultCycle;
         try {
             String statLogInterval = SzTracerConfiguration
-                .getProperty(SzTracerConfiguration.STAT_LOG_INTERVAL);
+                    .getProperty(SzTracerConfiguration.STAT_LOG_INTERVAL);
             if (StringUtils.isNotBlank(statLogInterval)) {
                 cycleTime = Long.parseLong(statLogInterval);
             }
@@ -131,8 +130,8 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
             SelfDefineLog.error("Parse stat log interval configure error", e);
         }
         SelfDefineLog.warn(this.getStatTracerName() + " configured "
-                     + SzTracerConfiguration.STAT_LOG_INTERVAL + "=" + cycleTime
-                     + " second and default cycle=" + defaultCycle);
+                + SzTracerConfiguration.STAT_LOG_INTERVAL + "=" + cycleTime
+                + " second and default cycle=" + defaultCycle);
         return cycleTime;
     }
 
@@ -155,8 +154,8 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
             synchronized (this) {
                 if (this.appender == null) {
                     this.appender = LoadTestAwareAppender
-                        .createLoadTestAwareTimedRollingFileAppender(statTracerName, rollingPolicy,
-                            logReserveConfig);
+                            .createLoadTestAwareTimedRollingFileAppender(statTracerName, rollingPolicy,
+                                    logReserveConfig);
                 }
             }
         }
@@ -165,13 +164,14 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
 
     /**
      * report stat log,and call {@link AbstractSzTracerStatisticReporter#addStat}
+     *
      * @param SzTracerSpan
      */
     public abstract void doReportStat(SzTracerSpan SzTracerSpan);
 
     /**
      * By default, only the accumulated stat methods are provided.
-     *
+     * <p>
      * Update the data to the slot. The front is the unique key, followed by the numeric column.
      * The statistical calculation adds the numeric columns of different keys.
      *
@@ -292,7 +292,7 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
 
             if (appender instanceof LoadTestAwareAppender) {
                 ((LoadTestAwareAppender) appender).append(jsonBuffer.toString(),
-                    statMapKey.isLoadTest());
+                        statMapKey.isLoadTest());
             } else {
                 appender.append(jsonBuffer.toString());
             }
@@ -342,12 +342,12 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
 
     protected boolean isHttpOrMvcSuccess(String resultCode) {
         return resultCode.charAt(0) == '1' || resultCode.charAt(0) == '2'
-               || "302".equals(resultCode.trim()) || ("301".equals(resultCode.trim()));
+                || "302".equals(resultCode.trim()) || ("301".equals(resultCode.trim()));
     }
 
     protected boolean isWebHttpClientSuccess(String resultCode) {
         return StringUtils.isNotBlank(resultCode)
-               && (isHttpOrMvcSuccess(resultCode) || SzTracerConstant.RESULT_CODE_SUCCESS
-                   .equals(resultCode));
+                && (isHttpOrMvcSuccess(resultCode) || SzTracerConstant.RESULT_CODE_SUCCESS
+                .equals(resultCode));
     }
 }

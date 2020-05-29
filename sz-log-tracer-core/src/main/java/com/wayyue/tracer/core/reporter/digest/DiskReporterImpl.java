@@ -17,9 +17,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Internal customization : DiskReporterImpl
- *
- * @author yangguanchao
- * @since 2017/07/14
  */
 public class DiskReporterImpl extends AbstractDiskReporter {
 
@@ -29,15 +26,15 @@ public class DiskReporterImpl extends AbstractDiskReporter {
      */
     private final AtomicBoolean isDigestFileInited = new AtomicBoolean(false);
 
-    private final String                digestLogType;
+    private final String digestLogType;
 
-    private final String                digestRollingPolicy;
+    private final String digestRollingPolicy;
 
-    private String                      digestLogReserveConfig;
+    private String digestLogReserveConfig;
 
     private final SpanEncoder contextEncoder;
 
-    private String                      logNameKey;
+    private String logNameKey;
 
     /**
      * Statistical implementation, the user needs to implement a method of how to count,
@@ -47,8 +44,7 @@ public class DiskReporterImpl extends AbstractDiskReporter {
 
     public DiskReporterImpl(String digestLogType, SpanEncoder contextEncoder) {
 
-        this(digestLogType, StringUtils.EMPTY_STRING, StringUtils.EMPTY_STRING, contextEncoder,
-            null);
+        this(digestLogType, StringUtils.EMPTY_STRING, StringUtils.EMPTY_STRING, contextEncoder, null);
     }
 
     public DiskReporterImpl(String digestLogType, String digestRollingPolicy,
@@ -59,18 +55,17 @@ public class DiskReporterImpl extends AbstractDiskReporter {
 
     public DiskReporterImpl(String digestLogType, String digestRollingPolicy,
                             String digestLogReserveConfig, SpanEncoder contextEncoder,
-                           SzTracerStatisticReporter statReporter) {
-        this(digestLogType, digestRollingPolicy, digestLogReserveConfig, contextEncoder,
-            statReporter, null);
+                            SzTracerStatisticReporter statReporter) {
+        this(digestLogType, digestRollingPolicy, digestLogReserveConfig, contextEncoder, statReporter, null);
     }
 
     /**
-     * @param digestLogType             digestLogType:log type
-     * @param digestRollingPolicy       digestRollingPolicy:digest rolling policy
-     * @param digestLogReserveConfig    digestLogReserveConfig:Reserved days configuration
-     * @param contextEncoder            contextEncoder:Log Encoder
-     * @param statReporter              statReporter:User-supplied statistical log reporter implementation
-     * @param logNameKey                logNameKey:Log file configuration keyword
+     * @param digestLogType          digestLogType:log type
+     * @param digestRollingPolicy    digestRollingPolicy:digest rolling policy
+     * @param digestLogReserveConfig digestLogReserveConfig:Reserved days configuration
+     * @param contextEncoder         contextEncoder:Log Encoder
+     * @param statReporter           statReporter:User-supplied statistical log reporter implementation
+     * @param logNameKey             logNameKey:Log file configuration keyword
      */
     public DiskReporterImpl(String digestLogType, String digestRollingPolicy,
                             String digestLogReserveConfig, SpanEncoder contextEncoder,
@@ -112,8 +107,7 @@ public class DiskReporterImpl extends AbstractDiskReporter {
         if (!this.isDigestFileInited.get()) {
             this.initDigestFile();
         }
-        AsyncCommonDigestAppenderManager asyncDigestManager = SzTracerDigestReporterAsyncManager
-            .getSzTracerDigestReporterAsyncManager();
+        AsyncCommonDigestAppenderManager asyncDigestManager = SzTracerDigestReporterAsyncManager.getSzTracerDigestReporterAsyncManager();
         if (asyncDigestManager.isAppenderAndEncoderExist(this.digestLogType)) {
             //Print only when appender and encoder are present
             asyncDigestManager.append(span);
@@ -162,25 +156,21 @@ public class DiskReporterImpl extends AbstractDiskReporter {
             return;
         }
         if (StringUtils.isNotBlank(logNameKey)) {
-            String currentDigestLogReserveConfig = SzTracerConfiguration
-                .getLogReserveConfig(logNameKey);
+            String currentDigestLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(logNameKey);
             if (!currentDigestLogReserveConfig.equals(digestLogReserveConfig)) {
-                SelfDefineLog.info("the lognamekey : " + logNameKey
-                             + " take effect. the old logreserveconfig is "
-                             + digestLogReserveConfig + " and " + "the new logreverseconfig is "
-                             + currentDigestLogReserveConfig);
+                SelfDefineLog.info("the lognamekey : " + logNameKey + " take effect. the old logreserveconfig is "
+                        + digestLogReserveConfig + " and " + "the new logreverseconfig is " + currentDigestLogReserveConfig);
                 digestLogReserveConfig = currentDigestLogReserveConfig;
             }
         }
         TraceAppender digestTraceAppender = LoadTestAwareAppender
-            .createLoadTestAwareTimedRollingFileAppender(this.digestLogType,
-                this.digestRollingPolicy, this.digestLogReserveConfig);
+                .createLoadTestAwareTimedRollingFileAppender(this.digestLogType,
+                        this.digestRollingPolicy, this.digestLogReserveConfig);
         //registry digest
-        AsyncCommonDigestAppenderManager asyncDigestManager =SzTracerDigestReporterAsyncManager
-            .getSzTracerDigestReporterAsyncManager();
+        AsyncCommonDigestAppenderManager asyncDigestManager = SzTracerDigestReporterAsyncManager
+                .getSzTracerDigestReporterAsyncManager();
         if (!asyncDigestManager.isAppenderAndEncoderExist(this.digestLogType)) {
-            asyncDigestManager.addAppender(this.digestLogType, digestTraceAppender,
-                this.contextEncoder);
+            asyncDigestManager.addAppender(this.digestLogType, digestTraceAppender, this.contextEncoder);
         }
         //Already exists or created for the first time
         this.isDigestFileInited.set(true);

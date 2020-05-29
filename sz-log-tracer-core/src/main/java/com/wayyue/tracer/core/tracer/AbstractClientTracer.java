@@ -9,8 +9,6 @@ import com.wayyue.tracer.core.span.SzTracerSpan;
 /**
  * AbstractClientTracer
  *
- * @author yangguanchao
- * @since 2018/04/30
  */
 public abstract class AbstractClientTracer extends AbstractTracer {
 

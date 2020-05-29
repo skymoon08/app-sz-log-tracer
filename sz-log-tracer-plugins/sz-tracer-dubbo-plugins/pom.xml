@@ -6,37 +6,22 @@
         <groupId>com.wayyue</groupId>
         <artifactId>sz-log-tracer-parent</artifactId>
         <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sz-log-tracer-all</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
-
-    <name>sz-log-tracer-parent</name>
+    <artifactId>sz-tracer-dubbo-plugins</artifactId>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.6.0</version>
+        </dependency>
         <dependency>
             <groupId>com.wayyue</groupId>
             <artifactId>sz-log-tracer-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-log-tracer-extension</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-springmvc-plugins</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-dubbo-plugins</artifactId>
-        </dependency>
-
-
-
-
     </dependencies>
-
 </project>

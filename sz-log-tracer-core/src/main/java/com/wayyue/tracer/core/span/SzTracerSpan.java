@@ -19,12 +19,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.*;
 
-/**
- * SzTracerSpan
- *
- * @author zhanglong
- * @since 2020/05/27
- */
+
 public class SzTracerSpan implements Span {
 
     public static final char ARRAY_SEPARATOR = '|';

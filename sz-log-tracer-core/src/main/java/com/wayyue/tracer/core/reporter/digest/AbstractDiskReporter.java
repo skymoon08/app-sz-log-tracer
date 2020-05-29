@@ -1,6 +1,5 @@
 package com.wayyue.tracer.core.reporter.digest;
 
-
 import com.wayyue.tracer.core.configuration.SzTracerConfiguration;
 import com.wayyue.tracer.core.constants.SzTracerConstant;
 import com.wayyue.tracer.core.context.span.SzTracerSpanContext;
@@ -14,8 +13,6 @@ import java.util.Map;
  * AbstractDiskReporter
  *
  * Abstract classes for persisting log information, including digest log persistence and stat log persistence
- * @author yangguanchao
- * @since 2017/07/14
  */
 public abstract class AbstractDiskReporter extends AbstractReporter {
 
@@ -80,13 +77,12 @@ public abstract class AbstractDiskReporter extends AbstractReporter {
         }
         boolean allDisabled = Boolean.TRUE.toString().equalsIgnoreCase(
             SzTracerConfiguration.getProperty(SzTracerConfiguration.DISABLE_MIDDLEWARE_DIGEST_LOG_KEY));
-
         if (allDisabled) {
             return true;
         }
 
-        Map<String, String> disableConfiguration = SzTracerConfiguration
-            .getMapEmptyIfNull(SzTracerConfiguration.DISABLE_DIGEST_LOG_KEY);
+        Map<String, String> disableConfiguration = SzTracerConfiguration.getMapEmptyIfNull(
+                SzTracerConfiguration.DISABLE_DIGEST_LOG_KEY);
         //digest log type
         String logType = StringUtils.EMPTY_STRING + span.getLogType();
         if (StringUtils.isBlank(logType)) {

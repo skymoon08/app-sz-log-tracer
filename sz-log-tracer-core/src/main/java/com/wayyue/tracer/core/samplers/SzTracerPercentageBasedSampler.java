@@ -1,6 +1,5 @@
 package com.wayyue.tracer.core.samplers;
 
-
 import com.wayyue.tracer.core.constants.SzTracerConstant;
 import com.wayyue.tracer.core.span.SzTracerSpan;
 
