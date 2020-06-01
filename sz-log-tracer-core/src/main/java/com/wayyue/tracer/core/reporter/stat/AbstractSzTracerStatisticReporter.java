@@ -146,8 +146,8 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
     }
 
     @Override
-    public void reportStat(SzTracerSpan SzTracerSpan) {
-        if (SzTracerSpan == null) {
+    public void reportStat(SzTracerSpan szTracerSpan) {
+        if (szTracerSpan == null) {
             return;
         }
         if (this.appender == null) {
@@ -159,7 +159,7 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
                 }
             }
         }
-        this.doReportStat(SzTracerSpan);
+        this.doReportStat(szTracerSpan);
     }
 
     /**

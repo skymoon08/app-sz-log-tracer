@@ -18,8 +18,8 @@ public class DubboServerStatReporter extends AbstractSzTracerStatisticReporter {
     }
 
     @Override
-    public void doReportStat(SzTracerSpan sofaTracerSpan) {
-        Map<String, String> tagsWithStr = sofaTracerSpan.getTagsWithStr();
+    public void doReportStat(SzTracerSpan szTracerSpan) {
+        Map<String, String> tagsWithStr = szTracerSpan.getTagsWithStr();
         StatKey statKey = new StatKey();
         String appName = tagsWithStr.get(CommonSpanTags.LOCAL_APP);
         //service name
@@ -31,11 +31,11 @@ public class DubboServerStatReporter extends AbstractSzTracerStatisticReporter {
         statKey
             .setResult(SzTracerConstant.RESULT_CODE_SUCCESS.equals(resultCode) ? SzTracerConstant.STAT_FLAG_SUCCESS
                 : SzTracerConstant.STAT_FLAG_FAILS);
-        statKey.setEnd(buildString(new String[] { TracerUtils.getLoadTestMark(sofaTracerSpan) }));
+        statKey.setEnd(buildString(new String[] { TracerUtils.getLoadTestMark(szTracerSpan) }));
         //pressure mark
-        statKey.setLoadTest(TracerUtils.isLoadTest(sofaTracerSpan));
+        statKey.setLoadTest(TracerUtils.isLoadTest(szTracerSpan));
         //value the count and duration
-        long duration = sofaTracerSpan.getEndTime() - sofaTracerSpan.getStartTime();
+        long duration = szTracerSpan.getEndTime() - szTracerSpan.getStartTime();
         long[] values = new long[] { 1, duration };
         //reserve
         this.addStat(statKey, values);

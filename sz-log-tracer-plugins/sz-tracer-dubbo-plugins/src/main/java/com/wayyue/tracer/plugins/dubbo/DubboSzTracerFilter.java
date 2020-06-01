@@ -74,7 +74,7 @@ public class DubboSzTracerFilter implements Filter {
                 return result;
             }
             if (TracerSpanMap.containsKey(spanKey)) {
-                SzTracerSpan sofaTracerSpan = TracerSpanMap.get(spanKey);
+                SzTracerSpan tracerSpan = TracerSpanMap.get(spanKey);
                 // to build tracer instance
                 if (dubboConsumerSzTracer == null) {
                     this.dubboConsumerSzTracer = DubboConsumerSzTracer.getDubboConsumerSzTracerSingleton();
@@ -82,16 +82,15 @@ public class DubboSzTracerFilter implements Filter {
                 String resultCode = SzTracerConstant.RESULT_CODE_SUCCESS;
                 if (result.hasException()) {
                     if (result.getException() instanceof RpcException) {
-                        resultCode = Integer.toString(((RpcException) result.getException())
-                                .getCode());
-                        sofaTracerSpan.setTag(CommonSpanTags.RESULT_CODE, resultCode);
+                        resultCode = Integer.toString(((RpcException) result.getException()).getCode());
+                        tracerSpan.setTag(CommonSpanTags.RESULT_CODE, resultCode);
                     } else {
                         resultCode = SzTracerConstant.RESULT_CODE_ERROR;
                     }
                 }
                 // add elapsed time
-                appendElapsedTimeTags(invocation, sofaTracerSpan, result, true);
-                dubboConsumerSzTracer.clientReceiveTagFinish(sofaTracerSpan, resultCode);
+                appendElapsedTimeTags(invocation, tracerSpan, result, true);
+                dubboConsumerSzTracer.clientReceiveTagFinish(tracerSpan, resultCode);
             }
         } finally {
             if (TracerSpanMap.containsKey(spanKey)) {
@@ -209,7 +208,7 @@ public class DubboSzTracerFilter implements Filter {
      */
     private Result doServerFilter(Invoker<?> invoker, Invocation invocation) {
         if (dubboProviderSzTracer == null) {
-            this.dubboProviderSzTracer = DubboProviderSzTracer.getDubboProviderSofaTracerSingleton();
+            this.dubboProviderSzTracer = DubboProviderSzTracer.getDubboProviderSzTracerSingleton();
         }
         SzTracerSpan szTracerSpan = serverReceived(invocation);
         appendRpcServerSpanTags(invoker, szTracerSpan);
@@ -253,29 +252,29 @@ public class DubboSzTracerFilter implements Filter {
         Map<String, String> tags = new HashMap<>();
         tags.put(Tags.SPAN_KIND.getKey(), Tags.SPAN_KIND_SERVER);
         String serializeSpanContext = invocation.getAttachments().get(CommonSpanTags.RPC_TRACE_NAME);
-        SzTracerSpanContext sofaTracerSpanContext = SzTracerSpanContext.deserializeFromString(serializeSpanContext);
+        SzTracerSpanContext tracerSpanContext = SzTracerSpanContext.deserializeFromString(serializeSpanContext);
         boolean isCalculateSampler = false;
         boolean isSampled = true;
-        if (sofaTracerSpanContext == null) {
+        if (tracerSpanContext == null) {
             SelfDefineLog.error("SpanContext created error when server received and root SpanContext created.");
-            sofaTracerSpanContext = SzTracerSpanContext.rootStart();
+            tracerSpanContext = SzTracerSpanContext.rootStart();
             isCalculateSampler = true;
         }
         String simpleName = invocation.getInvoker().getInterface().getSimpleName();
         SzTracerSpan serverSpan = new SzTracerSpan(dubboProviderSzTracer.getSzTracer(),
-                System.currentTimeMillis(), simpleName, sofaTracerSpanContext, tags);
+                System.currentTimeMillis(), simpleName, tracerSpanContext, tags);
         // calculate sampler
         if (isCalculateSampler) {
             Sampler sampler = dubboProviderSzTracer.getSzTracer().getSampler();
             if (sampler != null) {
                 isSampled = sampler.sample(serverSpan).isSampled();
             }
-            sofaTracerSpanContext.setSampled(isSampled);
+            tracerSpanContext.setSampled(isSampled);
         }
-        SzTraceContext sofaTraceContext = SzTraceContextHolder.getSzTraceContext();
+        SzTraceContext traceContext = SzTraceContextHolder.getSzTraceContext();
         // Record server receive event
         serverSpan.log(LogData.SERVER_RECV_EVENT_VALUE);
-        sofaTraceContext.push(serverSpan);
+        traceContext.push(serverSpan);
         return serverSpan;
     }
 
@@ -348,12 +347,12 @@ public class DubboSzTracerFilter implements Filter {
         tagsStr.put(CommonSpanTags.LOCAL_PORT, String.valueOf(rpcContext.getRemotePort()));
     }
 
-    private void appendRpcClientSpanTags(Invoker<?> invoker, SzTracerSpan sofaTracerSpan) {
-        if (sofaTracerSpan == null) {
+    private void appendRpcClientSpanTags(Invoker<?> invoker, SzTracerSpan tracerSpan) {
+        if (tracerSpan == null) {
             return;
         }
         RpcContext rpcContext = RpcContext.getContext();
-        Map<String, String> tagsStr = sofaTracerSpan.getTagsWithStr();
+        Map<String, String> tagsStr = tracerSpan.getTagsWithStr();
         tagsStr.put(Tags.SPAN_KIND.getKey(), spanKind(rpcContext));
         String protocol = rpcContext.getUrl().getProtocol();
         tagsStr.put(CommonSpanTags.PROTOCOL, protocol == null ? BLANK : protocol);

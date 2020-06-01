@@ -16,7 +16,7 @@ public class DubboProviderSzTracer extends AbstractServerTracer {
 
     private volatile static DubboProviderSzTracer dubboProviderSzTracer = null;
 
-    public static DubboProviderSzTracer getDubboProviderSofaTracerSingleton() {
+    public static DubboProviderSzTracer getDubboProviderSzTracerSingleton() {
         if (dubboProviderSzTracer == null) {
             synchronized (DubboProviderSzTracer.class) {
                 if (dubboProviderSzTracer == null) {

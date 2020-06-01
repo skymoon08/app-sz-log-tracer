@@ -11,6 +11,7 @@ import com.wayyue.tracer.core.span.SzTracerSpan;
 import com.wayyue.tracer.core.utils.StringUtils;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 /**
  * SpringMvcSzTracerFilter
  */
+@WebFilter(filterName = "SpringMvcSzTracerFilter", urlPatterns = { "/*" })
 public class SpringMvcSzTracerFilter implements Filter {
 
     private String appName = StringUtils.EMPTY_STRING;

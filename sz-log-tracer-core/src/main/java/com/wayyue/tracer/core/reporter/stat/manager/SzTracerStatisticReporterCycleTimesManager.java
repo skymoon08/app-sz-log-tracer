@@ -32,7 +32,7 @@ public class SzTracerStatisticReporterCycleTimesManager {
     /**
      * The timed task uses this as the entry: Get the scheduled task with the specified cycle time
      * @param cycleTime period: second
-     * @return SofaTracerStatisticReporterManager Fixed-cycle task manager
+     * @return SzTracerStatisticReporterManager Fixed-cycle task manager
      */
     public static SzTracerStatisticReporterManager getSzTracerStatisticReporterManager(Long cycleTime) {
         if (cycleTime == null) {

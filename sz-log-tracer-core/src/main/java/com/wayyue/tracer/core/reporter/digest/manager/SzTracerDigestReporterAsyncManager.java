@@ -10,7 +10,7 @@ import com.wayyue.tracer.core.appender.manager.AsyncCommonDigestAppenderManager;
 public final class SzTracerDigestReporterAsyncManager {
 
     /**
-     * Asynchronous log print, all middleware digest logs share a SofaTracerDigestReporterAsyncManager AsyncAppender to print logs
+     * Asynchronous log print, all middleware digest logs share a SzTracerDigestReporterAsyncManager AsyncAppender to print logs
      */
     private static volatile AsyncCommonDigestAppenderManager asyncCommonDigestAppenderManager;
 

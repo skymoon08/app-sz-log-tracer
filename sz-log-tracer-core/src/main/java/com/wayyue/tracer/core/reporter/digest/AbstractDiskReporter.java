@@ -70,9 +70,9 @@ public abstract class AbstractDiskReporter extends AbstractReporter {
         if (span == null || span.context() == null) {
             return true;
         }
-        SzTracerSpanContext sofaTracerSpanContext = (SzTracerSpanContext) span.context();
+        SzTracerSpanContext tracerSpanContext = (SzTracerSpanContext) span.context();
         // sampled is false; this span will not be report
-        if (!sofaTracerSpanContext.isSampled()) {
+        if (!tracerSpanContext.isSampled()) {
             return true;
         }
         boolean allDisabled = Boolean.TRUE.toString().equalsIgnoreCase(

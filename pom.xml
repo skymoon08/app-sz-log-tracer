@@ -14,6 +14,8 @@
         <module>sz-log-tracer-core</module>
         <module>sz-log-tracer-plugins/sz-tracer-springmvc-plugins</module>
         <module>sz-log-tracer-plugins/sz-tracer-dubbo-plugins</module>
+        <module>sz-log-tracer-plugins/sz-tracer-flexible-plugins</module>
+        <module>sz-log-tracer-plugins/sz-tracer-httpclient-plugins</module>
         <module>sz-log-tracer-all</module>
         <module>sz-log-tracer-extension</module>
         <module>sz-log-tracer-boot-starter</module>
@@ -35,6 +37,8 @@
         <opentracing.version>0.22.0</opentracing.version>
         <common.io.version>2.4</common.io.version>
 
+        <spring.boot.version>1.5.16.RELEASE</spring.boot.version>
+        <springframework.version>4.3.19.RELEASE</springframework.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -58,7 +62,16 @@
                 <artifactId>sz-tracer-dubbo-plugins</artifactId>
                 <version>${sz.tracer.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.wayyue</groupId>
+                <artifactId>sz-tracer-flexible-plugins</artifactId>
+                <version>${sz.tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.wayyue</groupId>
+                <artifactId>sz-tracer-httpclient-plugins</artifactId>
+                <version>${sz.tracer.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.wayyue</groupId>
                 <artifactId>sz-log-tracer-all</artifactId>
@@ -95,7 +108,21 @@
                 <version>${opentracing.version}</version>
             </dependency>
 
-
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
             <!-- 对外部框架的一些插件使用 -->
             <dependency>
                 <groupId>javax.servlet</groupId>
