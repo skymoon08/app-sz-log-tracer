@@ -20,22 +20,22 @@ public class SpringMvcJsonStatReporter extends SpringMvcStatReporter {
     }
 
     @Override
-    public void doReportStat(SzTracerSpan sofaTracerSpan) {
-        Map<String, String> tagsWithStr = sofaTracerSpan.getTagsWithStr();
+    public void doReportStat(SzTracerSpan tracerSpan) {
+        Map<String, String> tagsWithStr = tracerSpan.getTagsWithStr();
         StatMapKey statKey = new StatMapKey();
         statKey.addKey(CommonSpanTags.LOCAL_APP, tagsWithStr.get(CommonSpanTags.LOCAL_APP));
         statKey.addKey(CommonSpanTags.REQUEST_URL, tagsWithStr.get(CommonSpanTags.REQUEST_URL));
         statKey.addKey(CommonSpanTags.METHOD, tagsWithStr.get(CommonSpanTags.METHOD));
         //pressure mark
-        statKey.setLoadTest(TracerUtils.isLoadTest(sofaTracerSpan));
+        statKey.setLoadTest(TracerUtils.isLoadTest(tracerSpan));
         //success
         String resultCode = tagsWithStr.get(CommonSpanTags.RESULT_CODE);
         boolean success = (resultCode != null && resultCode.length() > 0 && this.isHttpOrMvcSuccess(resultCode));
         statKey.setResult(success ? SzTracerConstant.STAT_FLAG_SUCCESS : SzTracerConstant.STAT_FLAG_FAILS);
         //end
-        statKey.setEnd(TracerUtils.getLoadTestMark(sofaTracerSpan));
+        statKey.setEnd(TracerUtils.getLoadTestMark(tracerSpan));
         //duration
-        long duration = sofaTracerSpan.getEndTime() - sofaTracerSpan.getStartTime();
+        long duration = tracerSpan.getEndTime() - tracerSpan.getStartTime();
         long[] values = new long[]{1, duration};
         //reserve
         this.addStat(statKey, values);

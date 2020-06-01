@@ -33,9 +33,9 @@ public class DubboClientStatJsonReporter extends AbstractSzTracerStatisticReport
     }
 
     @Override
-    public void doReportStat(SzTracerSpan sofaTracerSpan) {
+    public void doReportStat(SzTracerSpan tracerSpan) {
         //tags
-        Map<String, String> tagsWithStr = sofaTracerSpan.getTagsWithStr();
+        Map<String, String> tagsWithStr = tracerSpan.getTagsWithStr();
         StatMapKey statKey = new StatMapKey();
         String appName = tagsWithStr.get(CommonSpanTags.LOCAL_APP);
         //service name
@@ -49,10 +49,10 @@ public class DubboClientStatJsonReporter extends AbstractSzTracerStatisticReport
         String resultCode = tagsWithStr.get(CommonSpanTags.RESULT_CODE);
         statKey.setResult(SzTracerConstant.RESULT_CODE_SUCCESS.equals(resultCode) ?
                 SzTracerConstant.STAT_FLAG_SUCCESS : SzTracerConstant.STAT_FLAG_FAILS);
-        statKey.setEnd(buildString(new String[] { getLoadTestMark(sofaTracerSpan) }));
-        statKey.setLoadTest(TracerUtils.isLoadTest(sofaTracerSpan));
+        statKey.setEnd(buildString(new String[] { getLoadTestMark(tracerSpan) }));
+        statKey.setLoadTest(TracerUtils.isLoadTest(tracerSpan));
 
-        long duration = sofaTracerSpan.getEndTime() - sofaTracerSpan.getStartTime();
+        long duration = tracerSpan.getEndTime() - tracerSpan.getStartTime();
         long[] values = new long[] { 1, duration };
         this.addStat(statKey, values);
     }

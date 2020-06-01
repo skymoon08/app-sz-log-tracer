@@ -22,21 +22,21 @@ public class FlexibleStatJsonReporter extends AbstractSzTracerStatisticReporter 
     }
 
     @Override
-    public void doReportStat(SzTracerSpan sofaTracerSpan) {
-        Map<String, String> tagsWithStr = sofaTracerSpan.getTagsWithStr();
+    public void doReportStat(SzTracerSpan tracerSpan) {
+        Map<String, String> tagsWithStr = tracerSpan.getTagsWithStr();
         StatMapKey statKey = new StatMapKey();
         statKey.addKey(CommonSpanTags.LOCAL_APP, tagsWithStr.get(CommonSpanTags.LOCAL_APP));
         statKey.addKey(CommonSpanTags.METHOD, tagsWithStr.get(CommonSpanTags.METHOD));
         //pressure mark
-        statKey.setLoadTest(TracerUtils.isLoadTest(sofaTracerSpan));
+        statKey.setLoadTest(TracerUtils.isLoadTest(tracerSpan));
         //success
         String error = tagsWithStr.get(Tags.ERROR.getKey());
         statKey.setResult(StringUtils.isBlank(error) ? SzTracerConstant.STAT_FLAG_SUCCESS
             : SzTracerConstant.STAT_FLAG_FAILS);
         //end
-        statKey.setEnd(TracerUtils.getLoadTestMark(sofaTracerSpan));
+        statKey.setEnd(TracerUtils.getLoadTestMark(tracerSpan));
         //value the count and duration
-        long duration = sofaTracerSpan.getEndTime() - sofaTracerSpan.getStartTime();
+        long duration = tracerSpan.getEndTime() - tracerSpan.getStartTime();
         long[] values = new long[] { 1, duration };
         //reserve
         this.addStat(statKey, values);

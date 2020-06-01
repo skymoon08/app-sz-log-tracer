@@ -14,18 +14,18 @@ import com.wayyue.tracer.plugins.dubbo.stat.DubboClientStatReporter;
 
 public class DubboConsumerSzTracer extends AbstractClientTracer {
 
-    private volatile static DubboConsumerSzTracer dubboConsumerSofaTracer = null;
+    private volatile static DubboConsumerSzTracer dubboConsumerSzTracer = null;
 
     public static DubboConsumerSzTracer getDubboConsumerSzTracerSingleton() {
-        if (dubboConsumerSofaTracer == null) {
+        if (dubboConsumerSzTracer == null) {
             synchronized (DubboConsumerSzTracer.class) {
-                if (dubboConsumerSofaTracer == null) {
-                    dubboConsumerSofaTracer = new DubboConsumerSzTracer(
+                if (dubboConsumerSzTracer == null) {
+                    dubboConsumerSzTracer = new DubboConsumerSzTracer(
                         ComponentNameConstants.DUBBO_CLIENT);
                 }
             }
         }
-        return dubboConsumerSofaTracer;
+        return dubboConsumerSzTracer;
     }
 
     public DubboConsumerSzTracer(String tracerType) {

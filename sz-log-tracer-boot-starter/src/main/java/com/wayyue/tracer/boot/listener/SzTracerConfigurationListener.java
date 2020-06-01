@@ -46,7 +46,7 @@ public class SzTracerConfigurationListener implements ApplicationListener<Applic
         try {
             binder.bindPropertiesToTarget();
         } catch (BindException ex) {
-            throw new IllegalStateException("Cannot bind to SofaTracerProperties", ex);
+            throw new IllegalStateException("Cannot bind to SzTracerProperties", ex);
         }
 
         //properties convert to tracer

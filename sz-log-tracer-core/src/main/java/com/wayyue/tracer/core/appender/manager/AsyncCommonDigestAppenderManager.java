@@ -163,20 +163,20 @@ public class AsyncCommonDigestAppenderManager {
         @Override
         public void onEvent(SzTracerSpanEvent event, long sequence, boolean endOfBatch) throws Exception {
 
-            SzTracerSpan sofaTracerSpan = event.getTracerSpan();
+            SzTracerSpan szTracerSpan = event.getTracerSpan();
 
-            if (sofaTracerSpan != null) {
+            if (szTracerSpan != null) {
                 try {
 
-                    String logType = sofaTracerSpan.getLogType();
+                    String logType = szTracerSpan.getLogType();
                     if (logTypes.contains(logType)) {
                         SpanEncoder encoder = contextEncoders.get(logType);
                         TraceAppender appender = appenders.get(logType);
 
-                        String encodedStr = encoder.encode(sofaTracerSpan);
+                        String encodedStr = encoder.encode(szTracerSpan);
                         if (appender instanceof LoadTestAwareAppender) {
                             ((LoadTestAwareAppender) appender).append(encodedStr,
-                                    TracerUtils.isLoadTest(sofaTracerSpan));
+                                    TracerUtils.isLoadTest(szTracerSpan));
                         } else {
                             appender.append(encodedStr);
                         }
@@ -184,7 +184,7 @@ public class AsyncCommonDigestAppenderManager {
 
                     }
                 } catch (Exception e) {
-                    SzTracerSpanContext tracerSpanContext = sofaTracerSpan.getSzTracerSpanContext();
+                    SzTracerSpanContext tracerSpanContext = szTracerSpan.getSzTracerSpanContext();
                     if (tracerSpanContext != null) {
                         SynchronizingSelfLog.error(
                                 "fail to async write log,tracerId["

@@ -34,22 +34,22 @@ public class SzTracerThreadLocalTraceContext implements SzTraceContext {
         if (this.isEmpty()) {
             return null;
         }
-        SzTracerSpan szTracerSpan = threadLocal.get();
+        SzTracerSpan tracerSpan = threadLocal.get();
         //remove
         this.clear();
-        return szTracerSpan;
+        return tracerSpan;
     }
 
     @Override
     public int getThreadLocalSpanSize() {
-        SzTracerSpan sofaTracerSpan = threadLocal.get();
-        return sofaTracerSpan == null ? 0 : 1;
+        SzTracerSpan tracerSpan = threadLocal.get();
+        return tracerSpan == null ? 0 : 1;
     }
 
     @Override
     public boolean isEmpty() {
-        SzTracerSpan sofaTracerSpan = threadLocal.get();
-        return sofaTracerSpan == null;
+        SzTracerSpan tracerSpan = threadLocal.get();
+        return tracerSpan == null;
     }
 
     @Override

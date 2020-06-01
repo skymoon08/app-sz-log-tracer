@@ -21,6 +21,7 @@ public class MDCSpanExtension implements SpanExtension {
             }
         }
 
+
     }
 
     @Override

@@ -134,8 +134,8 @@ public class FlexibleTracer extends SzTracer {
     }
 
     public SzTracerSpan beforeInvoke(String operationName) {
-        SzTraceContext sofaTraceContext = SzTraceContextHolder.getSzTraceContext();
-        SzTracerSpan serverSpan = sofaTraceContext.pop();
+        SzTraceContext traceContext = SzTraceContextHolder.getSzTraceContext();
+        SzTracerSpan serverSpan = traceContext.pop();
         SzTracerSpan methodSpan = null;
         try {
             methodSpan = (SzTracerSpan) this.buildSpan(operationName).asChildOf(serverSpan)
@@ -162,7 +162,7 @@ public class FlexibleTracer extends SzTracer {
                 methodSpan.setTag(Tags.SPAN_KIND.getKey(), Tags.SPAN_KIND_CLIENT);
                 methodSpan.setTag(CommonSpanTags.CURRENT_THREAD_NAME, Thread.currentThread().getName());
                 methodSpan.log(LogData.CLIENT_SEND_EVENT_VALUE);
-                sofaTraceContext.push(methodSpan);
+                traceContext.push(methodSpan);
             }
         }
 
@@ -174,8 +174,8 @@ public class FlexibleTracer extends SzTracer {
     }
 
     public void afterInvoke(String error) {
-        SzTraceContext sofaTraceContext = SzTraceContextHolder.getSzTraceContext();
-        SzTracerSpan clientSpan = sofaTraceContext.pop();
+        SzTraceContext szTraceContext = SzTraceContextHolder.getSzTraceContext();
+        SzTracerSpan clientSpan = szTraceContext.pop();
         if (clientSpan == null) {
             return;
         }
@@ -194,7 +194,7 @@ public class FlexibleTracer extends SzTracer {
         clientSpan.finish();
         // restore parent span
         if (clientSpan.getParentSzTracerSpan() != null) {
-            sofaTraceContext.push(clientSpan.getParentSzTracerSpan());
+            szTraceContext.push(clientSpan.getParentSzTracerSpan());
         }
     }
 

@@ -29,9 +29,9 @@ public interface SzTracerStatisticReporter {
 
     /**
      * Update data to the slot
-     * @param sofaTracerSpan
+     * @param szTracerSpan
      */
-    void reportStat(SzTracerSpan sofaTracerSpan);
+    void reportStat(SzTracerSpan szTracerSpan);
 
     /**
      * Switch the current subscript and return the stat before switching

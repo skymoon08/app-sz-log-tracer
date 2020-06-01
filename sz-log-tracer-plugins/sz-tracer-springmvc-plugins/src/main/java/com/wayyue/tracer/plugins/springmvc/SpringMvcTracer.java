@@ -63,10 +63,10 @@ public class SpringMvcTracer extends AbstractServerTracer {
 
     @Override
     protected AbstractSzTracerStatisticReporter generateServerStatReporter() {
-        return generateSofaMvcStatReporter();
+        return generateSzMvcStatReporter();
     }
 
-    private SpringMvcStatReporter generateSofaMvcStatReporter() {
+    private SpringMvcStatReporter generateSzMvcStatReporter() {
         SpringMvcLogEnum springMvcLogEnum = SpringMvcLogEnum.SPRING_MVC_STAT;
         String statLog = springMvcLogEnum.getDefaultLogName();
         String statRollingPolicy = SzTracerConfiguration.getRollingPolicy(springMvcLogEnum.getRollingKey());
