@@ -22,7 +22,7 @@ import java.util.HashMap;
 /**
  * SpringMvcSzTracerFilter
  */
-@WebFilter(filterName = "SpringMvcSzTracerFilter", urlPatterns = { "/*" })
+@WebFilter(filterName = "springMvcSzTracerFilter", urlPatterns = {"/*"})
 public class SpringMvcSzTracerFilter implements Filter {
 
     private String appName = StringUtils.EMPTY_STRING;
