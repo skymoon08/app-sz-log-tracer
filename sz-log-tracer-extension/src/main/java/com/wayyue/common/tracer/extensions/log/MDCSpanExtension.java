@@ -20,8 +20,6 @@ public class MDCSpanExtension implements SpanExtension {
                 MDC.put(MDCKeyConstants.MDC_SPANID, SzTracerSpanContext.getSpanId());
             }
         }
-
-
     }
 
     @Override
