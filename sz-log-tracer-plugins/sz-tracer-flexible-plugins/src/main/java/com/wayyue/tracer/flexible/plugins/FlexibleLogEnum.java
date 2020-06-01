@@ -1,27 +1,29 @@
-package com.wayyue.tracer.plugins.springmvc;
+
+package com.wayyue.tracer.flexible.plugins;
 
 /**
- * SpringMvcLogEnum
+ * FlexibleLogEnum for flexible biz tracer
  *
- * @author zhanglong
- * @since 2020/06/01
- */
-public enum SpringMvcLogEnum {
+ **/
+public enum FlexibleLogEnum {
 
-    SPRING_MVC_DIGEST("spring_mvc_digest_log_name", "spring-mvc-digest.log", "spring_mvc_digest_rolling"),
-    SPRING_MVC_STAT("spring_mvc_stat_log_name", "spring-mvc-stat.log", "spring_mvc_stat_rolling");
+    // Flexible Digest Log
+    FLEXIBLE_DIGEST("biz_digest_log_name", "biz-digest.log", "biz_digest_rolling"),
+    // Flexible Stat Log
+    FLEXIBLE_STAT("biz_stat_log_name", "biz-stat.log", "biz_stat_rolling"), ;
 
     private String logNameKey;
     private String defaultLogName;
     private String rollingKey;
 
-    SpringMvcLogEnum(String logNameKey, String defaultLogName, String rollingKey) {
+    FlexibleLogEnum(String logNameKey, String defaultLogName, String rollingKey) {
         this.logNameKey = logNameKey;
         this.defaultLogName = defaultLogName;
         this.rollingKey = rollingKey;
     }
 
     public String getLogNameKey() {
+        //log reserve config key
         return logNameKey;
     }
 

@@ -16,7 +16,7 @@ public class DubboConsumerSzTracer extends AbstractClientTracer {
 
     private volatile static DubboConsumerSzTracer dubboConsumerSofaTracer = null;
 
-    public static DubboConsumerSzTracer getDubboConsumerSofaTracerSingleton() {
+    public static DubboConsumerSzTracer getDubboConsumerSzTracerSingleton() {
         if (dubboConsumerSofaTracer == null) {
             synchronized (DubboConsumerSzTracer.class) {
                 if (dubboConsumerSofaTracer == null) {

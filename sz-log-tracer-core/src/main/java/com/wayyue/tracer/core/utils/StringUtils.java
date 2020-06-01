@@ -15,27 +15,27 @@ import static com.wayyue.tracer.core.appender.builder.XStringBuilder.*;
  */
 public class StringUtils {
 
-    public static final String   NEWLINE                  = "\r\n";
+    public static final String NEWLINE = "\r\n";
 
-    public static final String   EMPTY_STRING             = "";
+    public static final String EMPTY_STRING = "";
 
-    public static final String   EQUAL                    = "=";
+    public static final String EQUAL = "=";
 
-    public static final String   AND                      = "&";
+    public static final String AND = "&";
 
-    public static final char     EQUAL_CHARACTER          = '=';
+    public static final char EQUAL_CHARACTER = '=';
 
-    public static final char     AND_CHARACTER            = '&';
+    public static final char AND_CHARACTER = '&';
 
-    public static final String[] EMPTY_STRING_ARRAY       = new String[0];
+    public static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    private static final String  FOLDER_SEPARATOR         = "/";
+    private static final String FOLDER_SEPARATOR = "/";
 
-    private static final String  WINDOWS_FOLDER_SEPARATOR = "\\";
+    private static final String WINDOWS_FOLDER_SEPARATOR = "\\";
 
-    private static final String  TOP_PATH                 = "..";
+    private static final String TOP_PATH = "..";
 
-    private static final String  CURRENT_PATH             = ".";
+    private static final String CURRENT_PATH = ".";
 
     public static boolean isBlank(String str) {
         int strLen;
@@ -57,8 +57,8 @@ public class StringUtils {
     /**
      * Convert the map to a string and add the specified prefix to each key, such as {"k1":"v1"}
      *
-     * @param map       origin data
-     * @param prefix    prefix
+     * @param map    origin data
+     * @param prefix prefix
      * @return
      */
     public static String mapToStringWithPrefix(Map<String, String> map, String prefix) {
@@ -104,6 +104,7 @@ public class StringUtils {
 
     /**
      * Convert from string to map, the inverse of the function mapToString
+     *
      * @param str origin data
      * @param map default result
      */
@@ -154,6 +155,7 @@ public class StringUtils {
 
     /**
      * Array to string
+     *
      * @param items     origin data
      * @param separator separator
      * @param prefix    prefix
@@ -198,6 +200,7 @@ public class StringUtils {
 
     /**
      * Replace "&"、"=" and "%"
+     *
      * @param str origin data
      */
     public static String escapePercentEqualAnd(String str) {
@@ -209,6 +212,7 @@ public class StringUtils {
 
     /**
      * escapePercentEqualAnd's Reverse Operation
+     *
      * @param str
      * @return
      */
@@ -221,9 +225,10 @@ public class StringUtils {
 
     /**
      * Replace oldStr in str with newStr
-     * @param str       target origin data
-     * @param oldStr    oldStr
-     * @param newStr    newStr
+     *
+     * @param str    target origin data
+     * @param oldStr oldStr
+     * @param newStr newStr
      */
     private static String escape(String str, String oldStr, String newStr) {
         if (str == null) {
@@ -304,7 +309,8 @@ public class StringUtils {
     /**
      * Convert a {@code Collection} into a delimited {@code String} (e.g. CSV).
      * <p>Useful for {@code toString()} implementations.
-     * @param coll the {@code Collection} to convert
+     *
+     * @param coll  the {@code Collection} to convert
      * @param delim the delimiter to use (typically a ",")
      * @return the delimited {@code String}
      */
@@ -339,11 +345,12 @@ public class StringUtils {
      * <p>A single {@code delimiter} may consist of more than one character,
      * but it will still be considered as a single delimiter string, rather
      * than as bunch of potential delimiter characters, in contrast to
-     * @param str the input {@code String}
-     * @param delimiter the delimiter between elements (this is a single delimiter,
-     * rather than a bunch individual delimiter characters)
+     *
+     * @param str           the input {@code String}
+     * @param delimiter     the delimiter between elements (this is a single delimiter,
+     *                      rather than a bunch individual delimiter characters)
      * @param charsToDelete a set of characters to delete; useful for deleting unwanted
-     * line breaks: e.g. "\r\n\f" will delete all new lines and line feeds in a {@code String}
+     *                      line breaks: e.g. "\r\n\f" will delete all new lines and line feeds in a {@code String}
      * @return an array of the tokens in the list
      */
     public static String[] delimitedListToStringArray(String str, String delimiter,
@@ -352,7 +359,7 @@ public class StringUtils {
             return new String[0];
         }
         if (delimiter == null) {
-            return new String[] { str };
+            return new String[]{str};
         }
 
         List<String> result = new ArrayList<String>();
@@ -385,9 +392,10 @@ public class StringUtils {
 
     /**
      * Delete any character in a given {@code String}.
-     * @param inString the original {@code String}
+     *
+     * @param inString      the original {@code String}
      * @param charsToDelete a set of characters to delete.
-     * E.g. "az\n" will delete 'a's, 'z's and new lines.
+     *                      E.g. "az\n" will delete 'a's, 'z's and new lines.
      * @return the resulting {@code String}
      */
     public static String deleteAny(String inString, String charsToDelete) {
@@ -408,7 +416,8 @@ public class StringUtils {
     /**
      * Replace all occurrences of a substring within a string with
      * another string.
-     * @param inString {@code String} to examine
+     *
+     * @param inString   {@code String} to examine
      * @param oldPattern {@code String} to replace
      * @param newPattern {@code String} to insert
      * @return a {@code String} with the replacements
@@ -446,8 +455,8 @@ public class StringUtils {
     /**
      * Counts the characters that appear in the specified string
      *
-     * @param str   target str
-     * @param c     target char c
+     * @param str target str
+     * @param c   target char c
      * @return
      */
     public static int countMatches(String str, char c) {

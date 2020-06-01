@@ -1,4 +1,4 @@
-package com.wayyue.tracer.mvcencoder;
+package com.wayyue.tracer.httpclient.plugins;
 
 
 import com.wayyue.tracer.core.appender.builder.JsonStringBuilder;
@@ -10,26 +10,29 @@ import com.wayyue.tracer.core.span.SzTracerSpan;
 import java.util.Map;
 
 /**
- * DigestJsonEncoder
+ * HttpClientDigestJsonEncoder
  *
+ * @author zhanglong
+ * @since 2020/06/01
  */
-public class DigestJsonEncoder extends AbstractDigestSpanEncoder {
+public class HttpClientDigestJsonEncoder extends AbstractDigestSpanEncoder {
 
     @Override
-    protected void appendComponentSlot(XStringBuilder xsb, JsonStringBuilder jsb,
-                                       SzTracerSpan span) {
+    protected void appendComponentSlot(XStringBuilder xsb, JsonStringBuilder jsb, SzTracerSpan span) {
 
         Map<String, String> tagWithStr = span.getTagsWithStr();
-        Map<String, Number> tagWithNum = span.getTagsWithNumber();
-        //Request URL
+        Map<String, Number> tagWithNumber = span.getTagsWithNumber();
+        //URL
         jsb.append(CommonSpanTags.REQUEST_URL, tagWithStr.get(CommonSpanTags.REQUEST_URL));
-        //Request method
+        //POST/GET
         jsb.append(CommonSpanTags.METHOD, tagWithStr.get(CommonSpanTags.METHOD));
-        Number requestSize = tagWithNum.get(CommonSpanTags.REQ_SIZE);
-        //Request Body Size (byte)
+        // requestSize
+        Number requestSize = tagWithNumber.get(CommonSpanTags.REQ_SIZE);
+        //Request Body bytes length
         jsb.append(CommonSpanTags.REQ_SIZE, (requestSize == null ? 0L : requestSize.longValue()));
-        Number responseSize = tagWithNum.get(CommonSpanTags.RESP_SIZE);
-        //Response Body Size，(byte)
+        Number responseSize = tagWithNumber.get(CommonSpanTags.RESP_SIZE);
+        //Response Body bytes length
         jsb.append(CommonSpanTags.RESP_SIZE, (responseSize == null ? 0L : responseSize.longValue()));
+        jsb.append(CommonSpanTags.REMOTE_APP, tagWithStr.get(CommonSpanTags.REMOTE_APP));
     }
 }

@@ -6,37 +6,40 @@
         <artifactId>sz-log-tracer-parent</artifactId>
         <groupId>com.wayyue</groupId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+
     <artifactId>sz-log-tracer-boot-starter</artifactId>
+
     <properties>
         <java.compiler.source.version>1.8</java.compiler.source.version>
         <java.compiler.target.version>1.8</java.compiler.target.version>
-        <sz.tracer.version>1.0.0</sz.tracer.version>
-        <spring.boot.version>1.5.16.RELEASE</spring.boot.version>
-        <springframework.version>4.3.19.RELEASE</springframework.version>
+        <project.encoding>UTF-8</project.encoding>
+        <project.build.encoding>UTF-8</project.build.encoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.wayyue</groupId>
             <artifactId>sz-log-tracer-core</artifactId>
-            <version>${sz.tracer.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-springmvc-plugins</artifactId>
-            <version>${sz.tracer.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-dubbo-plugins</artifactId>
-            <version>${sz.tracer.version}</version>
         </dependency>
         <dependency>
             <groupId>com.wayyue</groupId>
             <artifactId>sz-log-tracer-extension</artifactId>
-            <version>${sz.tracer.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wayyue</groupId>
+            <artifactId>sz-tracer-springmvc-plugins</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wayyue</groupId>
+            <artifactId>sz-tracer-dubbo-plugins</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wayyue</groupId>
+            <artifactId>sz-tracer-flexible-plugins</artifactId>
         </dependency>
 
         <dependency>
@@ -54,11 +57,6 @@
             <artifactId>spring-boot-autoconfigure</artifactId>
             <version>${spring.boot.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.alipay.sofa</groupId>-->
-<!--            <artifactId>infra-sofa-boot-starter</artifactId>-->
-<!--        </dependency>-->
-        <!-- optional -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -71,35 +69,5 @@
             <version>${spring.boot.version}</version>
             <optional>true</optional>
         </dependency>
-        <!-- test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.boot.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP-java6</artifactId>
-            <version>2.3.8</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-
 </project>

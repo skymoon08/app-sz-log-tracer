@@ -34,10 +34,10 @@ public class SzTracerThreadLocalTraceContext implements SzTraceContext {
         if (this.isEmpty()) {
             return null;
         }
-        SzTracerSpan sofaTracerSpan = threadLocal.get();
+        SzTracerSpan szTracerSpan = threadLocal.get();
         //remove
         this.clear();
-        return sofaTracerSpan;
+        return szTracerSpan;
     }
 
     @Override

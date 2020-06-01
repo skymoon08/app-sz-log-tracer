@@ -6,7 +6,7 @@ import com.wayyue.tracer.core.span.SzTracerSpan;
 public interface Sampler {
 
     /**
-     * @param sofaTracerSpan The operation name set on the span
+     * @param szTracerSpan The operation name set on the span
      * @return whether or not the new trace should be sampled
      */
     SamplingStatus sample(SzTracerSpan szTracerSpan);

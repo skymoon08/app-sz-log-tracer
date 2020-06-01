@@ -1,8 +1,8 @@
 package com.wayyue.tracer.boot.springmvc.configuration;
 
-
-import com.wayyue.tracer.SpringMvcSzTracerFilter;
+import com.wayyue.tracer.boot.configuration.SzTracerAutoConfiguration;
 import com.wayyue.tracer.boot.springmvc.properties.OpenTracingSpringMvcProperties;
+import com.wayyue.tracer.plugins.springmvc.SpringMvcSzTracerFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -14,16 +14,11 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-/**
- * OpenTracingSpringMvcAutoConfiguration
- *
- * @author jinming.xiao
- * @since 2020/05/28
- */
 @Configuration
 @EnableConfigurationProperties(OpenTracingSpringMvcProperties.class)
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "com.wayyue.tracer.springmvc", value = "enable", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "com.wayyue.tracer.plugins.springmvc", value = "enable", matchIfMissing = true)
+@AutoConfigureAfter(SzTracerAutoConfiguration.class)
 public class OpenTracingSpringMvcAutoConfiguration {
 
     @Autowired
@@ -45,4 +40,5 @@ public class OpenTracingSpringMvcAutoConfiguration {
         filterRegistrationBean.setOrder(openTracingSpringProperties.getFilterOrder());
         return filterRegistrationBean;
     }
+
 }

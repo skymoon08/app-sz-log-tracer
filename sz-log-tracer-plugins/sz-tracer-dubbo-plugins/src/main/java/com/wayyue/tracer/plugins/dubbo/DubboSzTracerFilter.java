@@ -77,7 +77,7 @@ public class DubboSzTracerFilter implements Filter {
                 SzTracerSpan sofaTracerSpan = TracerSpanMap.get(spanKey);
                 // to build tracer instance
                 if (dubboConsumerSzTracer == null) {
-                    this.dubboConsumerSzTracer = DubboConsumerSzTracer.getDubboConsumerSofaTracerSingleton();
+                    this.dubboConsumerSzTracer = DubboConsumerSzTracer.getDubboConsumerSzTracerSingleton();
                 }
                 String resultCode = SzTracerConstant.RESULT_CODE_SUCCESS;
                 if (result.hasException()) {
@@ -112,7 +112,7 @@ public class DubboSzTracerFilter implements Filter {
     private Result doClientFilter(RpcContext rpcContext, Invoker<?> invoker, Invocation invocation) {
         // to build tracer instance
         if (dubboConsumerSzTracer == null) {
-            this.dubboConsumerSzTracer = DubboConsumerSzTracer.getDubboConsumerSofaTracerSingleton();
+            this.dubboConsumerSzTracer = DubboConsumerSzTracer.getDubboConsumerSzTracerSingleton();
         }
         // get methodName
         String methodName = rpcContext.getMethodName();

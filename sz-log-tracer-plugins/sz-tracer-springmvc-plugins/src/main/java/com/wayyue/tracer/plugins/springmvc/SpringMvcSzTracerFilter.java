@@ -88,13 +88,13 @@ public class SpringMvcSzTracerFilter implements Filter {
     }
 
     public String getFilterName() {
-        return "SpringMvcSofaTracerFilter";
+        return "SpringMvcSzTracerFilter";
     }
 
     /***
      * Extract tracing context from request received from previous node
      * @param request Servlet http request object
-     * @return SofaTracerSpanContext Tracing context extract from request
+     * @return SzTracerSpanContext Tracing context extract from request
      */
     public SzTracerSpanContext getSpanContextFromRequest(HttpServletRequest request) {
         HashMap<String, String> headers = new HashMap<String, String>();
@@ -104,24 +104,24 @@ public class SpringMvcSzTracerFilter implements Filter {
             String value = request.getHeader(key);
             headers.put(key, value);
         }
-        // Delay the initialization of the SofaTracerSpanContext to execute the serverReceive method
-        if (headers.isEmpty() || !isContainSofaTracerMark(headers)) {
+        // Delay the initialization of the SzTracerSpanContext to execute the serverReceive method
+        if (headers.isEmpty() || !isContainSzTracerMark(headers)) {
             return null;
         }
 
         SzTracer tracer = springMvcTracer.getSzTracer();
-        SzTracerSpanContext spanContext = (SzTracerSpanContext) tracer.extract(
-                ExtendFormat.Builtin.B3_HTTP_HEADERS, new SpringMvcHeadersCarrier(headers));
+        SzTracerSpanContext spanContext = (SzTracerSpanContext) tracer.extract(ExtendFormat.Builtin.B3_HTTP_HEADERS,
+                new SpringMvcHeadersCarrier(headers));
         return spanContext;
     }
 
     /**
-     * To check is contain sofaTracer mark
+     * To check is contain szTracer mark
      *
      * @param headers
      * @return
      */
-    private boolean isContainSofaTracerMark(HashMap<String, String> headers) {
+    private boolean isContainSzTracerMark(HashMap<String, String> headers) {
         return (headers.containsKey(AbstractTextB3Formatter.TRACE_ID_KEY_HEAD.toLowerCase()) || headers
                 .containsKey(AbstractTextB3Formatter.TRACE_ID_KEY_HEAD))
                 && (headers.containsKey(AbstractTextB3Formatter.SPAN_ID_KEY_HEAD.toLowerCase()) || headers

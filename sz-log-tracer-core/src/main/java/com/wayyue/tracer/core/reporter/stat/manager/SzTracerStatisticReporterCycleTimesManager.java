@@ -23,9 +23,9 @@ public class SzTracerStatisticReporterCycleTimesManager {
      * @param statisticReporter statisticReporter
      */
     public static void registerStatReporter(SzTracerStatisticReporter statisticReporter) {
-        SzTracerStatisticReporterManager sofaTracerStatisticReporterManager = SzTracerStatisticReporterCycleTimesManager.getSofaTracerStatisticReporterManager(statisticReporter.getPeriodTime());
-        if (sofaTracerStatisticReporterManager != null) {
-            sofaTracerStatisticReporterManager.addStatReporter(statisticReporter);
+        SzTracerStatisticReporterManager tracerStatisticReporterManager = SzTracerStatisticReporterCycleTimesManager.getSzTracerStatisticReporterManager(statisticReporter.getPeriodTime());
+        if (tracerStatisticReporterManager != null) {
+            tracerStatisticReporterManager.addStatReporter(statisticReporter);
         }
     }
 
@@ -34,7 +34,7 @@ public class SzTracerStatisticReporterCycleTimesManager {
      * @param cycleTime period: second
      * @return SofaTracerStatisticReporterManager Fixed-cycle task manager
      */
-    public static SzTracerStatisticReporterManager getSofaTracerStatisticReporterManager(Long cycleTime) {
+    public static SzTracerStatisticReporterManager getSzTracerStatisticReporterManager(Long cycleTime) {
         if (cycleTime == null) {
             return null;
         }

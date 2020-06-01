@@ -14,10 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wayyue.tracer;
+package com.wayyue.tracer.httpclient.plugins;
 
 
 import com.wayyue.tracer.core.constants.SzTracerConstant;
+import com.wayyue.tracer.core.reporter.stat.AbstractSzTracerStatisticReporter;
 import com.wayyue.tracer.core.reporter.stat.model.StatMapKey;
 import com.wayyue.tracer.core.span.CommonSpanTags;
 import com.wayyue.tracer.core.span.SzTracerSpan;
@@ -26,13 +27,15 @@ import com.wayyue.tracer.core.utils.TracerUtils;
 import java.util.Map;
 
 /**
- * SpringMvcJsonStatReporter
+ * HttpClientStatJsonReporter
  *
+ * @author zhanglong
+ * @since 2020/06/01
  */
-public class SpringMvcJsonStatReporter extends SpringMvcStatReporter {
+public class HttpClientStatJsonReporter extends AbstractSzTracerStatisticReporter {
 
-    public SpringMvcJsonStatReporter(String statTracerName, String rollingPolicy,
-                                     String logReserveConfig) {
+    public HttpClientStatJsonReporter(String statTracerName, String rollingPolicy,
+                                      String logReserveConfig) {
         super(statTracerName, rollingPolicy, logReserveConfig);
     }
 
@@ -47,12 +50,11 @@ public class SpringMvcJsonStatReporter extends SpringMvcStatReporter {
         statKey.setLoadTest(TracerUtils.isLoadTest(sofaTracerSpan));
         //success
         String resultCode = tagsWithStr.get(CommonSpanTags.RESULT_CODE);
-        boolean success = (resultCode != null && resultCode.length() > 0 && this
-            .isHttpOrMvcSuccess(resultCode));
+        boolean success = isWebHttpClientSuccess(resultCode);
         statKey.setResult(success ? SzTracerConstant.STAT_FLAG_SUCCESS : SzTracerConstant.STAT_FLAG_FAILS);
         //end
         statKey.setEnd(TracerUtils.getLoadTestMark(sofaTracerSpan));
-        //duration
+        //value the count and duration
         long duration = sofaTracerSpan.getEndTime() - sofaTracerSpan.getStartTime();
         long[] values = new long[] { 1, duration };
         //reserve

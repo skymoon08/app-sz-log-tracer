@@ -7,7 +7,7 @@ public interface RegistryExtractorInjector<T> {
 
     /**
      * As the keyword key or header identification information of the cross-process transmission field,
-     * its value is the serialization representation of {@link com.wayyue.tracer.core.context.span.SzTracerSpanContext}: sofa tracer head
+     * its value is the serialization representation of {@link com.wayyue.tracer.core.context.span.SzTracerSpanContext}:  tracer head
      */
     String FORMATER_KEY_HEAD = "sftc_head";
 

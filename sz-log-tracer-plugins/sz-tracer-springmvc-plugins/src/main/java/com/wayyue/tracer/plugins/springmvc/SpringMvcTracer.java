@@ -69,10 +69,8 @@ public class SpringMvcTracer extends AbstractServerTracer {
     private SpringMvcStatReporter generateSofaMvcStatReporter() {
         SpringMvcLogEnum springMvcLogEnum = SpringMvcLogEnum.SPRING_MVC_STAT;
         String statLog = springMvcLogEnum.getDefaultLogName();
-        String statRollingPolicy = SzTracerConfiguration.getRollingPolicy(springMvcLogEnum
-            .getRollingKey());
-        String statLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(springMvcLogEnum
-            .getLogNameKey());
+        String statRollingPolicy = SzTracerConfiguration.getRollingPolicy(springMvcLogEnum.getRollingKey());
+        String statLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(springMvcLogEnum.getLogNameKey());
         if (SzTracerConfiguration.isJsonOutput()) {
             return new SpringMvcJsonStatReporter(statLog, statRollingPolicy, statLogReserveConfig);
         } else {
