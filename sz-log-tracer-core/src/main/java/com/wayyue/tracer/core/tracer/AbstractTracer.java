@@ -221,8 +221,8 @@ public abstract class AbstractTracer {
      */
     public void serverSend(String resultCode) {
         try {
-            SzTraceContext SzTraceContext = SzTraceContextHolder.getSzTraceContext();
-            SzTracerSpan serverSpan = SzTraceContext.pop();
+            SzTraceContext szTraceContext = SzTraceContextHolder.getSzTraceContext();
+            SzTracerSpan serverSpan = szTraceContext.pop();
             if (serverSpan == null) {
                 return;
             }
@@ -238,10 +238,10 @@ public abstract class AbstractTracer {
     }
 
     protected SzTracerSpan genSeverSpanInstance(long startTime, String operationName,
-                                                  SzTracerSpanContext SzTracerSpanContext,
+                                                  SzTracerSpanContext szTracerSpanContext,
                                                   Map<String, ?> tags) {
         return new SzTracerSpan(this.szTracer, startTime, null, operationName,
-            SzTracerSpanContext, tags);
+            szTracerSpanContext, tags);
     }
 
     /**
@@ -249,8 +249,8 @@ public abstract class AbstractTracer {
      * the client does not have the right time to clean up (can only judge size <= 1)
      */
     private void clearTreadLocalContext() {
-        SzTraceContext SzTraceContext = SzTraceContextHolder.getSzTraceContext();
-        SzTraceContext.clear();
+        SzTraceContext szTraceContext = SzTraceContextHolder.getSzTraceContext();
+        szTraceContext.clear();
     }
 
     /**
@@ -266,8 +266,7 @@ public abstract class AbstractTracer {
         SzTracerSpanContext spanContext = SzTracerSpanContext.rootStart();
         spanContext.addBizBaggage(bizBaggage);
         spanContext.addSysBaggage(sysBaggage);
-        SzTracerSpan span = this.genSeverSpanInstance(System.currentTimeMillis(),
-            StringUtils.EMPTY_STRING, spanContext, null);
+        SzTracerSpan span = this.genSeverSpanInstance(System.currentTimeMillis(), StringUtils.EMPTY_STRING, spanContext, null);
         return span;
     }
 

@@ -347,12 +347,12 @@ public class DubboSzTracerFilter implements Filter {
         tagsStr.put(CommonSpanTags.LOCAL_PORT, String.valueOf(rpcContext.getRemotePort()));
     }
 
-    private void appendRpcClientSpanTags(Invoker<?> invoker, SzTracerSpan tracerSpan) {
-        if (tracerSpan == null) {
+    private void appendRpcClientSpanTags(Invoker<?> invoker, SzTracerSpan szTracerSpan) {
+        if (szTracerSpan == null) {
             return;
         }
         RpcContext rpcContext = RpcContext.getContext();
-        Map<String, String> tagsStr = tracerSpan.getTagsWithStr();
+        Map<String, String> tagsStr = szTracerSpan.getTagsWithStr();
         tagsStr.put(Tags.SPAN_KIND.getKey(), spanKind(rpcContext));
         String protocol = rpcContext.getUrl().getProtocol();
         tagsStr.put(CommonSpanTags.PROTOCOL, protocol == null ? BLANK : protocol);
