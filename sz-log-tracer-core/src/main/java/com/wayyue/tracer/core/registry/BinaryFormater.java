@@ -15,7 +15,6 @@ import java.nio.ByteBuffer;
  * </p>
  * @author jinming.xiao
  * @since 2020/06/01
- * @since 2017/06/23
  */
 public class BinaryFormater implements RegistryExtractorInjector<ByteBuffer> {
 

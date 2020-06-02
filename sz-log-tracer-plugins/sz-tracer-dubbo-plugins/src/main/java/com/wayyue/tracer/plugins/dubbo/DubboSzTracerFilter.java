@@ -34,7 +34,7 @@ public class DubboSzTracerFilter implements Filter {
 
     private static final String BLANK = StringUtils.EMPTY_STRING;
 
-    private static final String SPAN_INVOKE_KEY = "sofa.current.span.key";
+    private static final String SPAN_INVOKE_KEY = "sz.current.span.key";
 
     private DubboConsumerSzTracer dubboConsumerSzTracer;
 

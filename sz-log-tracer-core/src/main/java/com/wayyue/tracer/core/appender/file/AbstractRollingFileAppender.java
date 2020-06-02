@@ -21,28 +21,28 @@ public abstract class AbstractRollingFileAppender implements TraceAppender {
     /**
      * The log refresh interval, when the buffer time exceeds the interval, the cached log data is refreshed.
      */
-    private static final long      LOG_FLUSH_INTERVAL         = TimeUnit.SECONDS.toMillis(1);
+    private static final long LOG_FLUSH_INTERVAL = TimeUnit.SECONDS.toMillis(1);
     /**
      * Default output buffer size 8KB
      */
-    public static final int        DEFAULT_BUFFER_SIZE        = 8 * 1024;
-    private static final long      IOEXCEPTION_PRINT_INTERVAL = 60 * 1000;
+    public static final int DEFAULT_BUFFER_SIZE = 8 * 1024;
+    private static final long IOEXCEPTION_PRINT_INTERVAL = 60 * 1000;
 
     /**
      * Log cache buffer size
      */
-    private final int              bufferSize;
+    private final int bufferSize;
 
-    protected final String         fileName;
+    protected final String fileName;
 
-    private final AtomicBoolean    isRolling                  = new AtomicBoolean(false);
+    private final AtomicBoolean isRolling = new AtomicBoolean(false);
 
-    protected File                 logFile                    = null;
+    protected File logFile = null;
 
-    protected BufferedOutputStream bos                        = null;
+    protected BufferedOutputStream bos = null;
 
-    private long                   nextFlushTime              = 0L;
-    private long                   nextIOExceptionPrintTime   = 0L;
+    private long nextFlushTime = 0L;
+    private long nextIOExceptionPrintTime = 0L;
 
     public AbstractRollingFileAppender(String file, boolean append) {
         this(file, DEFAULT_BUFFER_SIZE, append);
@@ -70,8 +70,8 @@ public abstract class AbstractRollingFileAppender implements TraceAppender {
             }
             if (!logFile.isFile() || !logFile.canWrite()) {
                 doSelfLog("[ERROR] Invalid file, exists=" + logFile.exists() + ", isFile="
-                          + logFile.isFile() + ", canWrite=" + logFile.canWrite() + ", path="
-                          + logFile.getAbsolutePath());
+                        + logFile.isFile() + ", canWrite=" + logFile.canWrite() + ", path="
+                        + logFile.getAbsolutePath());
                 return;
             }
             //append == true
@@ -109,13 +109,14 @@ public abstract class AbstractRollingFileAppender implements TraceAppender {
 
     /**
      * Whether to scroll right now
+     *
      * @return true
      */
     protected abstract boolean shouldRollOverNow();
 
     /**
      * Ready to RollOver
-     *
+     * <p>
      * WARNING：Do not use SelfLog when logging RollOver,
      * because this time it is possible that SelfLog is in RollOver itself.
      */
