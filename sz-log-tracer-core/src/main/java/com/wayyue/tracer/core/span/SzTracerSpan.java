@@ -142,7 +142,7 @@ public class SzTracerSpan implements Span {
     public void finish(long endTime) {
         this.setEndTime(endTime);
         //Key record:report span
-        this.szTracer.reportSpan(this);
+//        this.szTracer.reportSpan(this);
         SpanExtensionFactory.logStoppedSpan(this);
     }
 
