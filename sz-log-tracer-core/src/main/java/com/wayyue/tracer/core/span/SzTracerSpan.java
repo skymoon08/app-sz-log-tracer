@@ -151,11 +151,6 @@ public class SzTracerSpan implements Span {
         this.finish();
     }
 
-//    @Override
-//    public void close() {
-//        this.finish();
-//    }
-
     @Override
     public Span setTag(String key, String value) {
         if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {

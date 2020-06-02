@@ -16,7 +16,8 @@ import java.util.TimeZone;
 /**
  * Tracer's tool class, this tool class is an internal tool class, please do not rely on non-Tracer related JAR packages.
  *
- * @author khotyn 4/4/14 1:39 PM
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public class TracerUtils {
 

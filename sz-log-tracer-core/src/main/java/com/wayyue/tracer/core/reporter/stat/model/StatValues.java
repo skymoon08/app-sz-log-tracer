@@ -38,7 +38,8 @@ import java.util.concurrent.atomic.AtomicReference;
  * and the values ​​in the existing array cannot be directly changed (so that the atom is modified)
  * </p>
  *
- * @author zhanghan
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public class StatValues {
     /**

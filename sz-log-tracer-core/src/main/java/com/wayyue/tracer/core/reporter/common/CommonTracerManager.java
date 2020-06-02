@@ -14,7 +14,8 @@ import com.wayyue.tracer.core.utils.StringUtils;
 /**
  * CommonTracerManager
  *
- * @author yangguanchao
+ * @author jinming.xiao
+ * @since 2020/06/01
  * @since 2017/06/28
  */
 public class CommonTracerManager {

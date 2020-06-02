@@ -22,7 +22,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * @author liangen
+ * @author jinming.xiao
+ * @since 2020/06/01
  * @version $Id: AsyncCommonDigestAppenderManager.java, v 0.1 October 23, 2017 9：47 AM liangen Exp $
  */
 public class AsyncCommonDigestAppenderManager {
