@@ -19,6 +19,7 @@
         <module>sz-log-tracer-all</module>
         <module>sz-log-tracer-extension</module>
         <module>sz-log-tracer-boot-starter</module>
+        <module>sz-log-tracer-plugins/sz-tracer-zipkin-plugins</module>
     </modules>
 
 
@@ -43,6 +44,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.wayyue</groupId>
                 <artifactId>sz-log-tracer-extension</artifactId>
                 <version>${sz.tracer.version}</version>
@@ -50,6 +61,11 @@
             <dependency>
                 <groupId>com.wayyue</groupId>
                 <artifactId>sz-log-tracer-core</artifactId>
+                <version>${sz.tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.wayyue</groupId>
+                <artifactId>sz-tracer-zipkin-plugins</artifactId>
                 <version>${sz.tracer.version}</version>
             </dependency>
             <dependency>

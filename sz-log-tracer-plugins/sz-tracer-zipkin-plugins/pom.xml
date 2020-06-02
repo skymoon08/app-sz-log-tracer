@@ -3,17 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.wayyue</groupId>
         <artifactId>sz-log-tracer-parent</artifactId>
+        <groupId>com.wayyue</groupId>
         <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sz-log-tracer-all</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
-
-    <name>sz-log-tracer-parent</name>
+    <artifactId>sz-tracer-zipkin-plugins</artifactId>
 
     <dependencies>
         <dependency>
@@ -25,30 +22,26 @@
             <artifactId>sz-log-tracer-extension</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-springmvc-plugins</artifactId>
+            <groupId>io.zipkin.zipkin2</groupId>
+            <artifactId>zipkin</artifactId>
+            <version>2.11.12</version>
         </dependency>
-
         <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-dubbo-plugins</artifactId>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-reporter</artifactId>
+            <version>2.7.13</version>
         </dependency>
-
         <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-flexible-plugins</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-httpclient-plugins</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-zipkin-plugins</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
-
     </dependencies>
-
 </project>

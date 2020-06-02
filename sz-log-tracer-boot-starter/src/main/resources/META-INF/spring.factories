@@ -1,2 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wayyue.tracer.boot.springmvc.configuration.OpenTracingSpringMvcAutoConfiguration
+com.wayyue.tracer.boot.springmvc.configuration.OpenTracingSpringMvcAutoConfiguration,\
+com.wayyue.tracer.boot.zipkin.configuration.ZipkinSzTracerAutoConfiguration
+org.springframework.context.ApplicationListener=com.wayyue.tracer.boot.listener.SzTracerConfigurationListener
+
