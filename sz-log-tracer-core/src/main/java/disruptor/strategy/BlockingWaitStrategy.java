@@ -53,7 +53,6 @@ public final class BlockingWaitStrategy implements WaitStrategy {
 
     @Override
     public String toString() {
-        return "BlockingWaitStrategy{" + "processorNotifyCondition=" + processorNotifyCondition
-               + '}';
+        return "BlockingWaitStrategy{" + "processorNotifyCondition=" + processorNotifyCondition + '}';
     }
 }

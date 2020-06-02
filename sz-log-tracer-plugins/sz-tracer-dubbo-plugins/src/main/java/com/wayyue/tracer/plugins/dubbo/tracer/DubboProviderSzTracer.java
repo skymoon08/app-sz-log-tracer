@@ -59,11 +59,8 @@ public class DubboProviderSzTracer extends AbstractServerTracer {
     protected AbstractSzTracerStatisticReporter generateServerStatReporter() {
         DubboLogEnum dubboClientStat = DubboLogEnum.DUBBO_SERVER_STAT;
         String statLog = dubboClientStat.getDefaultLogName();
-        String statRollingPolicy = SzTracerConfiguration.getRollingPolicy(dubboClientStat
-            .getRollingKey());
-        String statLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(dubboClientStat
-            .getLogNameKey());
-
+        String statRollingPolicy = SzTracerConfiguration.getRollingPolicy(dubboClientStat.getRollingKey());
+        String statLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(dubboClientStat.getLogNameKey());
         if (SzTracerConfiguration.isJsonOutput()) {
             return new DubboServerStatJsonReporter(statLog, statRollingPolicy, statLogReserveConfig);
         } else {

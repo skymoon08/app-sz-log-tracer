@@ -138,7 +138,7 @@ public class EventHandlerGroup<T> {
      * @return a {@link EventHandlerGroup} that can be used to chain dependencies.
      */
     public EventHandlerGroup<T> handleEventsWith(final EventProcessorFactory<T>... eventProcessorFactories) {
-        return disruptor.createEventProcessors(sequences,  eventProcessorFactories);
+        return disruptor.createEventProcessors(sequences, eventProcessorFactories);
     }
 
     /**

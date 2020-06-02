@@ -3,14 +3,14 @@ package com.wayyue.tracer.flexible.plugins;
 
 /**
  * FlexibleLogEnum for flexible biz tracer
- *
  **/
 public enum FlexibleLogEnum {
 
     // Flexible Digest Log
     FLEXIBLE_DIGEST("biz_digest_log_name", "biz-digest.log", "biz_digest_rolling"),
     // Flexible Stat Log
-    FLEXIBLE_STAT("biz_stat_log_name", "biz-stat.log", "biz_stat_rolling"), ;
+    FLEXIBLE_STAT("biz_stat_log_name", "biz-stat.log", "biz_stat_rolling"),
+    ;
 
     private String logNameKey;
     private String defaultLogName;

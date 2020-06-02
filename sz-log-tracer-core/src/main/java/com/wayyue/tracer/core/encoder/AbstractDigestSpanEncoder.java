@@ -39,11 +39,8 @@ public abstract class AbstractDigestSpanEncoder implements SpanEncoder<SzTracerS
         // component tag
         appendComponentSlot(null, jsb, span);
         // baggage
-        jsb.append(CommonSpanTags.SYS_BAGGAGE,
-            baggageSystemSerialized(span.getSzTracerSpanContext()));
-        jsb.appendEnd(CommonSpanTags.BIZ_BAGGAGE,
-            baggageSerialized(span.getSzTracerSpanContext()));
-
+        jsb.append(CommonSpanTags.SYS_BAGGAGE, baggageSystemSerialized(span.getSzTracerSpanContext()));
+        jsb.appendEnd(CommonSpanTags.BIZ_BAGGAGE, baggageSerialized(span.getSzTracerSpanContext()));
         return jsb.toString();
     }
 
@@ -117,8 +114,7 @@ public abstract class AbstractDigestSpanEncoder implements SpanEncoder<SzTracerS
         jsb.append(CommonSpanTags.CURRENT_THREAD_NAME,
             tagWithStr.get(CommonSpanTags.CURRENT_THREAD_NAME));
         // time.cost.milliseconds
-        jsb.append(CommonSpanTags.TIME_COST_MILLISECONDS, (span.getEndTime() - span.getStartTime())
-                                                          + SzTracerConstant.MS);
+        jsb.append(CommonSpanTags.TIME_COST_MILLISECONDS, (span.getEndTime() - span.getStartTime()) + SzTracerConstant.MS);
     }
 
     /**

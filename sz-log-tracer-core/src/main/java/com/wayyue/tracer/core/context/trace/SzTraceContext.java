@@ -8,7 +8,6 @@ import com.wayyue.tracer.core.span.SzTracerSpan;
  *
  * @author jinming.xiao
  * @since 2020/06/01
- * @since  2017/06/17
  */
 public interface SzTraceContext {
 

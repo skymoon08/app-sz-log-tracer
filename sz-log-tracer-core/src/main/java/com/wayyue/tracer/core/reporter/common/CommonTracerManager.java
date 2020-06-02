@@ -31,20 +31,17 @@ public class CommonTracerManager {
     static {
         String logName = TracerSystemLogEnum.MIDDLEWARE_ERROR.getDefaultLogName();
         TraceAppender traceAppender = LoadTestAwareAppender
-                .createLoadTestAwareTimedRollingFileAppender(logName, SzTracerConfiguration
-                .getProperty(TracerSystemLogEnum.MIDDLEWARE_ERROR.getRollingKey()),
-                SzTracerConfiguration.getProperty(TracerSystemLogEnum.MIDDLEWARE_ERROR
-                    .getLogReverseKey()));
+                .createLoadTestAwareTimedRollingFileAppender(logName,
+                        SzTracerConfiguration.getProperty(TracerSystemLogEnum.MIDDLEWARE_ERROR.getRollingKey()),
+                        SzTracerConfiguration.getProperty(TracerSystemLogEnum.MIDDLEWARE_ERROR.getLogReverseKey()));
         commonReporterAsyncManager.addAppender(logName, traceAppender, commonSpanEncoder);
 
         String profileLogName = TracerSystemLogEnum.RPC_PROFILE.getDefaultLogName();
         TraceAppender profileTraceAppender = LoadTestAwareAppender
-            .createLoadTestAwareTimedRollingFileAppender(profileLogName, SzTracerConfiguration
-                .getProperty(TracerSystemLogEnum.RPC_PROFILE.getRollingKey()),
-                SzTracerConfiguration.getProperty(TracerSystemLogEnum.RPC_PROFILE
-                    .getLogReverseKey()));
-        commonReporterAsyncManager.addAppender(profileLogName, profileTraceAppender,
-            commonSpanEncoder);
+                .createLoadTestAwareTimedRollingFileAppender(profileLogName,
+                        SzTracerConfiguration.getProperty(TracerSystemLogEnum.RPC_PROFILE.getRollingKey()),
+                        SzTracerConfiguration.getProperty(TracerSystemLogEnum.RPC_PROFILE.getLogReverseKey()));
+        commonReporterAsyncManager.addAppender(profileLogName, profileTraceAppender, commonSpanEncoder);
         //start
         commonReporterAsyncManager.start("CommonProfileErrorAppender");
     }

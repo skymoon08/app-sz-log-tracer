@@ -154,8 +154,7 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
             synchronized (this) {
                 if (this.appender == null) {
                     this.appender = LoadTestAwareAppender
-                            .createLoadTestAwareTimedRollingFileAppender(statTracerName, rollingPolicy,
-                                    logReserveConfig);
+                            .createLoadTestAwareTimedRollingFileAppender(statTracerName, rollingPolicy, logReserveConfig);
                 }
             }
         }
@@ -289,10 +288,8 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
             jsonBuffer.append(CommonSpanTags.SUCCESS, statMapKey.getResult());
             //pressure test mark
             jsonBuffer.appendEnd(CommonSpanTags.LOAD_TEST, statMapKey.getEnd());
-
             if (appender instanceof LoadTestAwareAppender) {
-                ((LoadTestAwareAppender) appender).append(jsonBuffer.toString(),
-                        statMapKey.isLoadTest());
+                ((LoadTestAwareAppender) appender).append(jsonBuffer.toString(), statMapKey.isLoadTest());
             } else {
                 appender.append(jsonBuffer.toString());
             }

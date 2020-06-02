@@ -11,10 +11,8 @@ public interface ExtendFormat<C> extends Format<C> {
             this.name = name;
         }
 
-        public final static Format<TextMap> B3_TEXT_MAP     = new ExtendFormat.Builtin<TextMap>(
-                                                                "B3_TEXT_MAP");
-        public final static Format<TextMap> B3_HTTP_HEADERS = new ExtendFormat.Builtin<TextMap>(
-                                                                "B3_HTTP_HEADERS");
+        public final static Format<TextMap> B3_TEXT_MAP     = new ExtendFormat.Builtin<TextMap>("B3_TEXT_MAP");
+        public final static Format<TextMap> B3_HTTP_HEADERS = new ExtendFormat.Builtin<TextMap>("B3_HTTP_HEADERS");
 
         @Override
         public String toString() {

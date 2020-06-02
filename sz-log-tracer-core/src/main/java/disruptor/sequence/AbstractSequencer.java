@@ -105,7 +105,7 @@ public abstract class AbstractSequencer implements Sequencer {
 
     @Override
     public String toString() {
-        return "AbstractSequencer{" + "waitStrategy=" + waitStrategy + ", cursor=" + cursor
-               + ", gatingSequences=" + Arrays.toString(gatingSequences) + '}';
+        return "AbstractSequencer{" + "waitStrategy=" + waitStrategy + ", cursor=" + cursor + ", gatingSequences=" +
+                Arrays.toString(gatingSequences) + '}';
     }
 }

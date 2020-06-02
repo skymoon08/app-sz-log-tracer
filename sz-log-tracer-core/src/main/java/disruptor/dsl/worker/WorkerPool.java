@@ -19,9 +19,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @param <T> event to be processed by a pool of workers
  */
 public final class WorkerPool<T> {
-    private final AtomicBoolean      started      = new AtomicBoolean(false);
-    private final Sequence           workSequence = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
-    private final RingBuffer<T>      ringBuffer;
+    private final AtomicBoolean started = new AtomicBoolean(false);
+    private final Sequence workSequence = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
+    private final RingBuffer<T> ringBuffer;
     // WorkProcessors are created to wrap each of the provided WorkHandlers
     private final WorkProcessor<?>[] workProcessors;
 
@@ -45,7 +45,7 @@ public final class WorkerPool<T> {
 
         for (int i = 0; i < numWorkers; i++) {
             workProcessors[i] = new WorkProcessor<T>(ringBuffer, sequenceBarrier, workHandlers[i],
-                exceptionHandler, workSequence);
+                    exceptionHandler, workSequence);
         }
     }
 
@@ -68,7 +68,7 @@ public final class WorkerPool<T> {
 
         for (int i = 0; i < numWorkers; i++) {
             workProcessors[i] = new WorkProcessor<T>(ringBuffer, barrier, workHandlers[i],
-                exceptionHandler, workSequence);
+                    exceptionHandler, workSequence);
         }
 
         ringBuffer.addGatingSequences(getWorkerSequences());
@@ -99,7 +99,7 @@ public final class WorkerPool<T> {
     public RingBuffer<T> start(final Executor executor) {
         if (!started.compareAndSet(false, true)) {
             throw new IllegalStateException(
-                "WorkerPool has already been started and cannot be restarted until halted.");
+                    "WorkerPool has already been started and cannot be restarted until halted.");
         }
 
         final long cursor = ringBuffer.getCursor();

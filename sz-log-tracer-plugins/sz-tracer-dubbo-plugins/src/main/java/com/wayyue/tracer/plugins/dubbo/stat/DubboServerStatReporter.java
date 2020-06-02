@@ -28,9 +28,8 @@ public class DubboServerStatReporter extends AbstractSzTracerStatisticReporter {
         String methodName = tagsWithStr.get(CommonSpanTags.METHOD);
         statKey.setKey(buildString(new String[] { appName, serviceName, methodName }));
         String resultCode = tagsWithStr.get(CommonSpanTags.RESULT_CODE);
-        statKey
-            .setResult(SzTracerConstant.RESULT_CODE_SUCCESS.equals(resultCode) ? SzTracerConstant.STAT_FLAG_SUCCESS
-                : SzTracerConstant.STAT_FLAG_FAILS);
+        statKey.setResult(SzTracerConstant.RESULT_CODE_SUCCESS.equals(resultCode) ?
+                SzTracerConstant.STAT_FLAG_SUCCESS : SzTracerConstant.STAT_FLAG_FAILS);
         statKey.setEnd(buildString(new String[] { TracerUtils.getLoadTestMark(szTracerSpan) }));
         //pressure mark
         statKey.setLoadTest(TracerUtils.isLoadTest(szTracerSpan));

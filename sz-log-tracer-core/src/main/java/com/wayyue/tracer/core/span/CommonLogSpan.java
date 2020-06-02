@@ -13,12 +13,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * CommonLogSpan
- *
+ * <p>
  * Mainly for recording specific sequential data
- *
- *
+ * <p>
+ * <p>
  * The reason to create a new object is to distinguish between the printing of CommonLogSpan and daily digest.
- *
  */
 public class CommonLogSpan extends SzTracerSpan {
 
@@ -27,9 +26,9 @@ public class CommonLogSpan extends SzTracerSpan {
     /**
      * The common slot, all the log data that needs to be printed are placed in it.
      */
-    private List<String> slots         = new ArrayList<String>();
+    private List<String> slots = new ArrayList<String>();
 
-    private AtomicInteger slotCounter   = new AtomicInteger(0);
+    private AtomicInteger slotCounter = new AtomicInteger(0);
 
     public CommonLogSpan(SzTracer SzTracer, long startTime, String operationName,
                          SzTracerSpanContext SzTracerSpanContext, Map<String, ?> tags) {
@@ -45,6 +44,7 @@ public class CommonLogSpan extends SzTracerSpan {
 
     /**
      * Add an item to Slots that needs to be printed
+     *
      * @param slot
      */
     public void addSlot(String slot) {
@@ -61,6 +61,7 @@ public class CommonLogSpan extends SzTracerSpan {
 
     /**
      * Get all the content you need to print
+     *
      * @return
      */
     public List<String> getSlots() {
@@ -69,6 +70,7 @@ public class CommonLogSpan extends SzTracerSpan {
 
     /**
      * Add slot list
+     *
      * @param stringArrayList
      */
     public void addSlots(List<String> stringArrayList) {

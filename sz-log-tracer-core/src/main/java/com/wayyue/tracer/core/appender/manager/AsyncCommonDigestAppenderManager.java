@@ -96,8 +96,7 @@ public class AsyncCommonDigestAppenderManager {
 
     public void addAppender(String logType, TraceAppender appender, SpanEncoder encoder) {
         if (isAppenderOrEncoderExist(logType)) {
-            SynchronizingSelfLog.error("logType[" + logType
-                    + "] already is added AsyncCommonDigestAppenderManager");
+            SynchronizingSelfLog.error("logType[" + logType + "] already is added AsyncCommonDigestAppenderManager");
             return;
         }
 

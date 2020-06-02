@@ -23,8 +23,7 @@ public class SzTracerAsyncHttpInterceptor extends AbstractHttpRequestInterceptor
     }
 
     @Override
-    public void process(HttpRequest httpRequest, HttpContext httpContext) throws HttpException,
-                                                                         IOException {
+    public void process(HttpRequest httpRequest, HttpContext httpContext) throws HttpException, IOException {
         //lazy init
         RequestLine requestLine = httpRequest.getRequestLine();
         String methodName = requestLine.getMethod();

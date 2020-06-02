@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TraceIdGenerator {
 
-    private static String        IP_16 = "ffffffff";
+    private static String IP_16 = "ffffffff";
     private static AtomicInteger count = new AtomicInteger(1000);
 
     static {
@@ -49,7 +49,7 @@ public class TraceIdGenerator {
     }
 
     private static int getNextId() {
-        for (;;) {
+        for (; ; ) {
             int current = count.get();
             int next = (current > 9000) ? 1000 : current + 1;
             if (count.compareAndSet(current, next)) {

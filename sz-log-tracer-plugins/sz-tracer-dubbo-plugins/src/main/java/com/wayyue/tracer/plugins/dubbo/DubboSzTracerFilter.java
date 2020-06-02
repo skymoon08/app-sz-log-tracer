@@ -261,8 +261,8 @@ public class DubboSzTracerFilter implements Filter {
             isCalculateSampler = true;
         }
         String simpleName = invocation.getInvoker().getInterface().getSimpleName();
-        SzTracerSpan serverSpan = new SzTracerSpan(dubboProviderSzTracer.getSzTracer(),
-                System.currentTimeMillis(), simpleName, tracerSpanContext, tags);
+        SzTracerSpan serverSpan = new SzTracerSpan(dubboProviderSzTracer.getSzTracer(), System.currentTimeMillis(),
+                simpleName, tracerSpanContext, tags);
         // calculate sampler
         if (isCalculateSampler) {
             Sampler sampler = dubboProviderSzTracer.getSzTracer().getSampler();

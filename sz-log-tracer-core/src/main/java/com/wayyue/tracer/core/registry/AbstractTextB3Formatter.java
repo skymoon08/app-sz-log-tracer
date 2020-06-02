@@ -83,17 +83,13 @@ public abstract class AbstractTextB3Formatter implements RegistryExtractorInject
                 isGetSampled = true;
             }
             if (key.indexOf(BAGGAGE_SYS_KEY_PREFIX) == 0) {
-                String keyTmp = StringUtils.unescapeEqualAndPercent(key).substring(
-                    BAGGAGE_SYS_KEY_PREFIX.length());
-                String valueTmp = StringUtils
-                    .unescapeEqualAndPercent(decodedValue(entry.getValue()));
+                String keyTmp = StringUtils.unescapeEqualAndPercent(key).substring(BAGGAGE_SYS_KEY_PREFIX.length());
+                String valueTmp = StringUtils.unescapeEqualAndPercent(decodedValue(entry.getValue()));
                 sysBaggage.put(keyTmp, valueTmp);
             }
             if (key.indexOf(BAGGAGE_KEY_PREFIX) == 0) {
-                String keyTmp = StringUtils.unescapeEqualAndPercent(key).substring(
-                    BAGGAGE_KEY_PREFIX.length());
-                String valueTmp = StringUtils
-                    .unescapeEqualAndPercent(decodedValue(entry.getValue()));
+                String keyTmp = StringUtils.unescapeEqualAndPercent(key).substring(BAGGAGE_KEY_PREFIX.length());
+                String valueTmp = StringUtils.unescapeEqualAndPercent(decodedValue(entry.getValue()));
                 bizBaggage.put(keyTmp, valueTmp);
             }
         }
@@ -109,16 +105,15 @@ public abstract class AbstractTextB3Formatter implements RegistryExtractorInject
         if (parentId == null) {
             parentId = StringUtils.EMPTY_STRING;
         }
-        SzTracerSpanContext SzTracerSpanContext = new SzTracerSpanContext(traceId, spanId,
-            parentId, sampled);
+        SzTracerSpanContext szTracerSpanContext = new SzTracerSpanContext(traceId, spanId, parentId, sampled);
         if (sysBaggage.size() > 0) {
-            SzTracerSpanContext.addSysBaggage(sysBaggage);
+            szTracerSpanContext.addSysBaggage(sysBaggage);
         }
         if (bizBaggage.size() > 0) {
-            SzTracerSpanContext.addBizBaggage(bizBaggage);
+            szTracerSpanContext.addBizBaggage(bizBaggage);
         }
 
-        return SzTracerSpanContext;
+        return szTracerSpanContext;
     }
 
     @Override

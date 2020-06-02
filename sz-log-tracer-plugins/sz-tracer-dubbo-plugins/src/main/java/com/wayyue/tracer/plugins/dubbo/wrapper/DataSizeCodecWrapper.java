@@ -73,10 +73,8 @@ public class DataSizeCodecWrapper implements Codec2 {
         codec.encode(channel, buffer, message);
         int respSize = buffer.writerIndex() - index;
         long elapsed = System.currentTimeMillis() - startTime;
-        ((RpcResult) result).setAttachment(AttachmentKeyConstants.SERVER_SERIALIZE_SIZE,
-            String.valueOf(respSize));
-        ((RpcResult) result).setAttachment(AttachmentKeyConstants.SERVER_SERIALIZE_TIME,
-            String.valueOf(elapsed));
+        ((RpcResult) result).setAttachment(AttachmentKeyConstants.SERVER_SERIALIZE_SIZE, String.valueOf(respSize));
+        ((RpcResult) result).setAttachment(AttachmentKeyConstants.SERVER_SERIALIZE_TIME, String.valueOf(elapsed));
     }
 
     /**
@@ -98,20 +96,16 @@ public class DataSizeCodecWrapper implements Codec2 {
             Object data = ((Request) ret).getData();
             if (data instanceof RpcInvocation) {
                 RpcInvocation invocation = (RpcInvocation) data;
-                invocation.setAttachment(AttachmentKeyConstants.SERVER_DESERIALIZE_SIZE,
-                    String.valueOf(size));
-                invocation.setAttachment(AttachmentKeyConstants.SERVER_DESERIALIZE_TIME,
-                    String.valueOf(elapsed));
+                invocation.setAttachment(AttachmentKeyConstants.SERVER_DESERIALIZE_SIZE, String.valueOf(size));
+                invocation.setAttachment(AttachmentKeyConstants.SERVER_DESERIALIZE_TIME, String.valueOf(elapsed));
             }
         } else if (ret instanceof Response) {
             // client-side deserialize the Response
             Object result = ((Response) ret).getResult();
             if (result instanceof RpcResult) {
                 RpcResult rpcResult = (RpcResult) result;
-                rpcResult.setAttachment(AttachmentKeyConstants.CLIENT_DESERIALIZE_SIZE,
-                    String.valueOf(size));
-                rpcResult.setAttachment(AttachmentKeyConstants.CLIENT_DESERIALIZE_TIME,
-                    String.valueOf(elapsed));
+                rpcResult.setAttachment(AttachmentKeyConstants.CLIENT_DESERIALIZE_SIZE, String.valueOf(size));
+                rpcResult.setAttachment(AttachmentKeyConstants.CLIENT_DESERIALIZE_TIME, String.valueOf(elapsed));
             }
         }
         return ret;

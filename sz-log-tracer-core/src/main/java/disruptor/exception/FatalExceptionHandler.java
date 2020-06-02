@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  */
 public final class FatalExceptionHandler implements ExceptionHandler<Object> {
     private static final Logger LOGGER = Logger.getLogger(FatalExceptionHandler.class.getName());
-    private final Logger        logger;
+    private final Logger logger;
 
     public FatalExceptionHandler() {
         this.logger = LOGGER;

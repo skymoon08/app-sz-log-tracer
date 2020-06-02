@@ -92,8 +92,7 @@ public class Disruptor<T> {
      * @param ringBufferSize the size of the ring buffer.
      * @param threadFactory  a {@link ThreadFactory} to create threads to for processors.
      */
-    public Disruptor(final EventFactory<T> eventFactory, final int ringBufferSize,
-                     final ThreadFactory threadFactory) {
+    public Disruptor(final EventFactory<T> eventFactory, final int ringBufferSize, final ThreadFactory threadFactory) {
         this(RingBuffer.createMultiProducer(eventFactory, ringBufferSize), new BasicExecutor(threadFactory));
     }
 
@@ -482,18 +481,15 @@ public class Disruptor<T> {
                                                       final EventProcessorFactory<T>[] processorFactories) {
         final EventProcessor[] eventProcessors = new EventProcessor[processorFactories.length];
         for (int i = 0; i < processorFactories.length; i++) {
-            eventProcessors[i] = processorFactories[i].createEventProcessor(ringBuffer,
-                barrierSequences);
+            eventProcessors[i] = processorFactories[i].createEventProcessor(ringBuffer, barrierSequences);
         }
-
         return handleEventsWith(eventProcessors);
     }
 
     public EventHandlerGroup<T> createWorkerPool(final Sequence[] barrierSequences,
                                           final WorkHandler<? super T>[] workHandlers) {
         final SequenceBarrier sequenceBarrier = ringBuffer.newBarrier(barrierSequences);
-        final WorkerPool<T> workerPool = new WorkerPool<T>(ringBuffer, sequenceBarrier,
-            exceptionHandler, workHandlers);
+        final WorkerPool<T> workerPool = new WorkerPool<T>(ringBuffer, sequenceBarrier, exceptionHandler, workHandlers);
 
         consumerRepository.add(workerPool, sequenceBarrier);
 
@@ -506,8 +502,7 @@ public class Disruptor<T> {
 
     private void checkNotStarted() {
         if (started.get()) {
-            throw new IllegalStateException(
-                "All event handlers must be added before calling starts.");
+            throw new IllegalStateException("All event handlers must be added before calling starts.");
         }
     }
 
@@ -519,7 +514,6 @@ public class Disruptor<T> {
 
     @Override
     public String toString() {
-        return "Disruptor{" + "ringBuffer=" + ringBuffer + ", started=" + started + ", executor="
-               + executor + '}';
+        return "Disruptor{" + "ringBuffer=" + ringBuffer + ", started=" + started + ", executor=" + executor + '}';
     }
 }

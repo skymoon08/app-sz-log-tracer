@@ -8,7 +8,6 @@ import io.opentracing.tag.StringTag;
 
 /**
  * SpanTags
- *
  */
 public class SpanTags {
 
@@ -46,7 +45,7 @@ public class SpanTags {
         String componentType = currentSpan.getSzTracer().getTracerType();
         if (!componentType.equalsIgnoreCase(ComponentNameConstants.FLEXIBLE)) {
             SelfDefineLog.error("Cannot set tag to component. current component is [" + componentType
-                          + "]");
+                    + "]");
             return false;
         }
         return true;

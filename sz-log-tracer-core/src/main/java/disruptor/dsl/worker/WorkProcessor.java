@@ -24,21 +24,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @param <T> event implementation storing the details for the work to processed.
  */
 public final class WorkProcessor<T> implements EventProcessor {
-    private final AtomicBoolean               running       = new AtomicBoolean(false);
-    private final Sequence                    sequence      = new Sequence(
-                                                                Sequencer.INITIAL_CURSOR_VALUE);
-    private final RingBuffer<T>               ringBuffer;
-    private final SequenceBarrier             sequenceBarrier;
+    private final AtomicBoolean running = new AtomicBoolean(false);
+    private final Sequence sequence = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
+    private final RingBuffer<T> ringBuffer;
+    private final SequenceBarrier sequenceBarrier;
     private final WorkHandler<? super T> workHandler;
     private final ExceptionHandler<? super T> exceptionHandler;
-    private final Sequence                    workSequence;
+    private final Sequence workSequence;
 
     private final EventReleaser eventReleaser = new EventReleaser() {
-                                                                @Override
-                                                                public void release() {
-                                                                    sequence.set(Long.MAX_VALUE);
-                                                                }
-                                                            };
+        @Override
+        public void release() {
+            sequence.set(Long.MAX_VALUE);
+        }
+    };
 
     private final TimeoutHandler timeoutHandler;
 
@@ -65,9 +64,7 @@ public final class WorkProcessor<T> implements EventProcessor {
         if (this.workHandler instanceof EventReleaseAware) {
             ((EventReleaseAware) this.workHandler).setEventReleaser(eventReleaser);
         }
-
-        timeoutHandler = (workHandler instanceof TimeoutHandler) ? (TimeoutHandler) workHandler
-            : null;
+        timeoutHandler = (workHandler instanceof TimeoutHandler) ? (TimeoutHandler) workHandler : null;
     }
 
     @Override
