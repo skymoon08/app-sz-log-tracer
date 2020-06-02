@@ -13,7 +13,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * @author yangyanzhao
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public abstract class AbstractRollingFileAppender implements TraceAppender {
 

@@ -13,7 +13,8 @@ import java.nio.ByteBuffer;
  * <p>
  *     Note: only supports the heap memory does not support outside the heap memory
  * </p>
- * @author yangguanchao
+ * @author jinming.xiao
+ * @since 2020/06/01
  * @since 2017/06/23
  */
 public class BinaryFormater implements RegistryExtractorInjector<ByteBuffer> {

@@ -26,8 +26,8 @@ import java.util.Map;
  * <p>
  * String splicing tool for convenient log output
  * </p>
- * @author yangguanchao
- * @since 2017/06/25
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public class XStringBuilder {
 

@@ -4,7 +4,8 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  *
- * @author liangen
+ * @author jinming.xiao
+ * @since 2020/06/01
  * @version $Id: ConsumerThreadFactory.java, v 0.1 October 23, 2017 10:09 AM liangen Exp $
  */
 public class ConsumerThreadFactory implements ThreadFactory {

@@ -6,7 +6,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * SpanReportListenerHolder
  *
- * @author yangguanchao
+ * @author jinming.xiao
+ * @since 2020/06/01
  * @since 2018/05/07
  */
 public class SpanReportListenerHolder {

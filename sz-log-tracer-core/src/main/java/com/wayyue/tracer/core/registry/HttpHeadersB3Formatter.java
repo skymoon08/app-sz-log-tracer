@@ -12,7 +12,8 @@ import java.net.URLEncoder;
 /**
  * HttpHeadersFormatter
  *
- * @author yangguanchao
+ * @author jinming.xiao
+ * @since 2020/06/01
  * @since 2017/06/23
  */
 public class HttpHeadersB3Formatter extends AbstractTextB3Formatter {

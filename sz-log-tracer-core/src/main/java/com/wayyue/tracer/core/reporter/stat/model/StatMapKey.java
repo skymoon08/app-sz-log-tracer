@@ -22,7 +22,8 @@ import java.util.Map;
 /**
  * StatMapKey
  *
- * @author yangguanchao
+ * @author jinming.xiao
+ * @since 2020/06/01
  * @since 2018/05/15
  */
 public class StatMapKey extends StatKey {
