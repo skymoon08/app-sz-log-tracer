@@ -22,7 +22,7 @@ import java.util.HashMap;
 /**
  * SpringMvcSzTracerFilter
  */
-@WebFilter(filterName = "SpringMvcSzTracerFilter", urlPatterns = { "/*" })
+@WebFilter(filterName = "SpringMvcSzTracerFilter", urlPatterns = {"/*"})
 public class SpringMvcSzTracerFilter implements Filter {
 
     private String appName = StringUtils.EMPTY_STRING;
@@ -35,11 +35,10 @@ public class SpringMvcSzTracerFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-                         FilterChain filterChain) {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) {
 
         if (this.springMvcTracer == null) {
-            this.springMvcTracer = springMvcTracer.getSpringMvcTracerSingleton();
+            this.springMvcTracer = SpringMvcTracer.getSpringMvcTracerSingleton();
         }
         SzTracerSpan springMvcSpan = null;
         long responseSize = -1;
@@ -112,8 +111,8 @@ public class SpringMvcSzTracerFilter implements Filter {
         }
 
         SzTracer tracer = springMvcTracer.getSzTracer();
-        SzTracerSpanContext spanContext = (SzTracerSpanContext) tracer.extract(ExtendFormat.Builtin.B3_HTTP_HEADERS,
-                new SpringMvcHeadersCarrier(headers));
+        SzTracerSpanContext spanContext = (SzTracerSpanContext) tracer.extract(
+                ExtendFormat.Builtin.B3_HTTP_HEADERS, new SpringMvcHeadersCarrier(headers));
         return spanContext;
     }
 
@@ -124,10 +123,10 @@ public class SpringMvcSzTracerFilter implements Filter {
      * @return
      */
     private boolean isContainSzTracerMark(HashMap<String, String> headers) {
-        return (headers.containsKey(AbstractTextB3Formatter.TRACE_ID_KEY_HEAD.toLowerCase()) || headers
-                .containsKey(AbstractTextB3Formatter.TRACE_ID_KEY_HEAD))
-                && (headers.containsKey(AbstractTextB3Formatter.SPAN_ID_KEY_HEAD.toLowerCase()) || headers
-                .containsKey(AbstractTextB3Formatter.SPAN_ID_KEY_HEAD));
+        return (headers.containsKey(AbstractTextB3Formatter.TRACE_ID_KEY_HEAD.toLowerCase()) ||
+                headers.containsKey(AbstractTextB3Formatter.TRACE_ID_KEY_HEAD))
+                && (headers.containsKey(AbstractTextB3Formatter.SPAN_ID_KEY_HEAD.toLowerCase()) ||
+                headers.containsKey(AbstractTextB3Formatter.SPAN_ID_KEY_HEAD));
     }
 
     class ResponseWrapper extends HttpServletResponseWrapper {

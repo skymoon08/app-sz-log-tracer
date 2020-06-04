@@ -213,8 +213,8 @@ public class SzTracerSpanContext implements SpanContext {
             return SzTracerSpanContext.rootStart();
         }
         //default value for SzTracerSpanContext
-        // TODO: 2020/6/2 traceId生成
-        String traceId = TraceIdGenerator.generate();
+
+        String traceId = TraceIdGenerator.generate(); // TODO: 2020/6/2 traceId生成
         String spanId = SzTracer.ROOT_SPAN_ID;
         String parentId = StringUtils.EMPTY_STRING;
         //sampled default is false
