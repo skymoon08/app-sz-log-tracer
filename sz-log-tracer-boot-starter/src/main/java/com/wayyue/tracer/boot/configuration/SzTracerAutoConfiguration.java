@@ -8,7 +8,6 @@ import com.wayyue.tracer.core.reporter.facade.Reporter;
 import com.wayyue.tracer.core.samplers.Sampler;
 import com.wayyue.tracer.core.samplers.SamplerFactory;
 import com.wayyue.tracer.core.utils.StringUtils;
-import com.wayyue.tracer.flexible.plugins.FlexibleTracer;
 import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -33,18 +32,5 @@ public class SzTracerAutoConfiguration {
             SpanReportListenerHolder.addSpanReportListeners(spanReportListenerList);
         }
         return null;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public Tracer tracer(SzTracerProperties szTracerProperties) throws Exception {
-        String reporterName = szTracerProperties.getReporterName();
-        if (StringUtils.isNotBlank(reporterName)) {
-            Reporter reporter = (Reporter) Class.forName(reporterName).newInstance();
-            Sampler sampler = SamplerFactory.getSampler();
-            return new FlexibleTracer(sampler, reporter);
-        }
-        Tracer tracer = new FlexibleTracer();
-        return tracer;
     }
 }

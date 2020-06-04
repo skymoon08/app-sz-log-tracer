@@ -14,7 +14,6 @@
         <module>sz-log-tracer-core</module>
         <module>sz-log-tracer-plugins/sz-tracer-springmvc-plugins</module>
         <module>sz-log-tracer-plugins/sz-tracer-dubbo-plugins</module>
-        <module>sz-log-tracer-plugins/sz-tracer-flexible-plugins</module>
         <module>sz-log-tracer-plugins/sz-tracer-httpclient-plugins</module>
         <module>sz-log-tracer-all</module>
         <module>sz-log-tracer-extension</module>
@@ -60,11 +59,6 @@
             <dependency>
                 <groupId>com.wayyue</groupId>
                 <artifactId>sz-tracer-dubbo-plugins</artifactId>
-                <version>${sz.tracer.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.wayyue</groupId>
-                <artifactId>sz-tracer-flexible-plugins</artifactId>
                 <version>${sz.tracer.version}</version>
             </dependency>
             <dependency>

@@ -37,10 +37,6 @@
             <artifactId>sz-tracer-dubbo-plugins</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-flexible-plugins</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.wayyue</groupId>
