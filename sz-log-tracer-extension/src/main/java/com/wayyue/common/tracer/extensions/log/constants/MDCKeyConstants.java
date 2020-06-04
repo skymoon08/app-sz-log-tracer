@@ -12,6 +12,4 @@ public class MDCKeyConstants {
 
     public static final String MDC_SPANID       = "SZ-SpanId";
 
-    public static final String MDC_PARENTSPANID = "SZ-ParentSpanId";
-
 }

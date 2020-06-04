@@ -21,7 +21,6 @@ import java.util.Map;
 
 /**
  * AbstractTracer
- *
  */
 public abstract class AbstractTracer {
 
@@ -35,16 +34,16 @@ public abstract class AbstractTracer {
         SzTracer.Builder builder = new SzTracer.Builder(tracerType);
         if (clientTracer) {
             Reporter clientReporter = this.generateReporter(this.generateClientStatReporter(),
-                this.getClientDigestReporterLogName(), this.getClientDigestReporterRollingKey(),
-                this.getClientDigestReporterLogNameKey(), this.getClientDigestEncoder());
+                    this.getClientDigestReporterLogName(), this.getClientDigestReporterRollingKey(),
+                    this.getClientDigestReporterLogNameKey(), this.getClientDigestEncoder());
             if (clientReporter != null) {
                 builder.withClientReporter(clientReporter);
             }
         }
         if (serverTracer) {
             Reporter serverReporter = this.generateReporter(this.generateServerStatReporter(),
-                this.getServerDigestReporterLogName(), this.getServerDigestReporterRollingKey(),
-                this.getServerDigestReporterLogNameKey(), this.getServerDigestEncoder());
+                    this.getServerDigestReporterLogName(), this.getServerDigestReporterRollingKey(),
+                    this.getServerDigestReporterLogNameKey(), this.getServerDigestEncoder());
             if (serverReporter != null) {
                 builder.withServerReporter(serverReporter);
             }
@@ -58,8 +57,8 @@ public abstract class AbstractTracer {
                                         SpanEncoder<SzTracerSpan> spanEncoder) {
         String digestRollingPolicy = SzTracerConfiguration.getRollingPolicy(logRollingKey);
         String digestLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(logNameKey);
-        DiskReporterImpl reporter = new DiskReporterImpl(logName, digestRollingPolicy,
-            digestLogReserveConfig, spanEncoder, statReporter, logNameKey);
+        DiskReporterImpl reporter = new DiskReporterImpl(logName, digestRollingPolicy, digestLogReserveConfig,
+                spanEncoder, statReporter, logNameKey);
         return reporter;
     }
 
@@ -88,15 +87,14 @@ public abstract class AbstractTracer {
      * If there is a span in the current SzTraceContext, it is the parent of the current Span
      *
      * @param operationName as span name
-     * @return              a new spam
+     * @return a new spam
      */
     public SzTracerSpan clientSend(String operationName) {
         SzTraceContext szTraceContext = SzTraceContextHolder.getSzTraceContext();
         SzTracerSpan serverSpan = szTraceContext.pop();
         SzTracerSpan clientSpan = null;
         try {
-            clientSpan = (SzTracerSpan) this.szTracer.buildSpan(operationName)
-                .asChildOf(serverSpan).start();
+            clientSpan = (SzTracerSpan) this.szTracer.buildSpan(operationName).asChildOf(serverSpan).start();
             // Need to actively cache your own serverSpan, because: asChildOf is concerned about spanContext
             clientSpan.setParentSzTracerSpan(serverSpan);
             return clientSpan;
@@ -114,7 +112,7 @@ public abstract class AbstractTracer {
             if (clientSpan != null) {
                 clientSpan.setTag(Tags.SPAN_KIND.getKey(), Tags.SPAN_KIND_CLIENT);
                 clientSpan.setTag(CommonSpanTags.CURRENT_THREAD_NAME, Thread.currentThread()
-                    .getName());
+                        .getName());
                 // log
                 clientSpan.log(LogData.CLIENT_SEND_EVENT_VALUE);
                 // Put into the thread context
@@ -125,14 +123,13 @@ public abstract class AbstractTracer {
     }
 
     /**
-     *
      * Stage CR, This stage will end a span
      *
      * @param resultCode resultCode to mark success or fail
      */
     public void clientReceive(String resultCode) {
-        SzTraceContext SzTraceContext = SzTraceContextHolder.getSzTraceContext();
-        SzTracerSpan clientSpan = SzTraceContext.pop();
+        SzTraceContext szTraceContext = SzTraceContextHolder.getSzTraceContext();
+        SzTracerSpan clientSpan = szTraceContext.pop();
         if (clientSpan == null) {
             return;
         }
@@ -140,12 +137,13 @@ public abstract class AbstractTracer {
         this.clientReceiveTagFinish(clientSpan, resultCode);
         // restore parent span
         if (clientSpan.getParentSzTracerSpan() != null) {
-            SzTraceContext.push(clientSpan.getParentSzTracerSpan());
+            szTraceContext.push(clientSpan.getParentSzTracerSpan());
         }
     }
 
     /**
      * Span finished and append tags
+     *
      * @param clientSpan current finished span
      * @param resultCode result status code
      */
@@ -162,10 +160,10 @@ public abstract class AbstractTracer {
 
     /**
      * Stage SR , This stage will produce a new span.
-     *
+     * <p>
      * For example, the SpringMVC component accepts a network request,
      * we need to create an mvc span to record related information.
-     *
+     * <p>
      * we do not care SzTracerSpanContext, just as root span
      *
      * @return SzTracerSpan
@@ -176,17 +174,18 @@ public abstract class AbstractTracer {
 
     /**
      * server receive request
-     * @param SzTracerSpanContext The context to restore
+     *
+     * @param szTracerSpanContext The context to restore
      * @return SzTracerSpan
      */
-    public SzTracerSpan serverReceive(SzTracerSpanContext SzTracerSpanContext) {
+    public SzTracerSpan serverReceive(SzTracerSpanContext szTracerSpanContext) {
         SzTracerSpan newSpan = null;
         // pop LogContext
         SzTraceContext szTraceContext = SzTraceContextHolder.getSzTraceContext();
         SzTracerSpan serverSpan = szTraceContext.pop();
         try {
             if (serverSpan == null) {
-                newSpan = (SzTracerSpan) this.szTracer.buildSpan(StringUtils.EMPTY_STRING).asChildOf(SzTracerSpanContext).start();
+                newSpan = (SzTracerSpan) this.szTracer.buildSpan(StringUtils.EMPTY_STRING).asChildOf(szTracerSpanContext).start();
             } else {
                 newSpan = (SzTracerSpan) this.szTracer.buildSpan(StringUtils.EMPTY_STRING).asChildOf(serverSpan).start();
             }
@@ -238,10 +237,8 @@ public abstract class AbstractTracer {
     }
 
     protected SzTracerSpan genSeverSpanInstance(long startTime, String operationName,
-                                                  SzTracerSpanContext szTracerSpanContext,
-                                                  Map<String, ?> tags) {
-        return new SzTracerSpan(this.szTracer, startTime, null, operationName,
-            szTracerSpanContext, tags);
+                                                SzTracerSpanContext szTracerSpanContext, Map<String, ?> tags) {
+        return new SzTracerSpan(this.szTracer, startTime, null, operationName, szTracerSpanContext, tags);
     }
 
     /**
@@ -254,7 +251,6 @@ public abstract class AbstractTracer {
     }
 
     /**
-     *
      * When an error occurs to remedy, start counting from the root node
      *
      * @param bizBaggage Business transparent transmission
@@ -262,7 +258,7 @@ public abstract class AbstractTracer {
      * @return root span
      */
     protected SzTracerSpan errorRecover(Map<String, String> bizBaggage,
-                                          Map<String, String> sysBaggage) {
+                                        Map<String, String> sysBaggage) {
         SzTracerSpanContext spanContext = SzTracerSpanContext.rootStart();
         spanContext.addBizBaggage(bizBaggage);
         spanContext.addSysBaggage(sysBaggage);
