@@ -39,7 +39,7 @@ public class SpringMvcSzTracerFilter implements Filter {
                          FilterChain filterChain) {
 
         if (this.springMvcTracer == null) {
-            this.springMvcTracer = springMvcTracer.getSpringMvcTracerSingleton();
+            this.springMvcTracer = SpringMvcTracer.getSpringMvcTracerSingleton();
         }
         SzTracerSpan springMvcSpan = null;
         long responseSize = -1;
