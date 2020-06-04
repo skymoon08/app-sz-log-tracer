@@ -476,8 +476,7 @@ public class SzTracer implements Tracer {
             } catch (Exception e) {
                 SelfDefineLog.error("Failed to get tracer sampler strategy;");
             }
-            return new SzTracer(this.tracerType, this.clientReporter, this.serverReporter,
-                    this.sampler, this.tracerTags);
+            return new SzTracer(this.tracerType, this.clientReporter, this.serverReporter, this.sampler, this.tracerTags);
         }
     }
 }
