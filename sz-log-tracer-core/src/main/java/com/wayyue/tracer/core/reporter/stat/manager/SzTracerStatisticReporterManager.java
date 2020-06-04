@@ -22,27 +22,27 @@ public class SzTracerStatisticReporterManager {
     /**
      * Threshold, if the number of keys in the stat log (map format) exceeds this value, the map is cleared, non-final for testability
      */
-    public static int                                CLEAR_STAT_KEY_THRESHOLD = 5000;
+    public static int CLEAR_STAT_KEY_THRESHOLD = 5000;
 
     /**
      * The default output period is 60 seconds.
      */
-    public static final long                         DEFAULT_CYCLE_SECONDS    = 60;
+    public static final long DEFAULT_CYCLE_SECONDS = 60;
 
     /**
      * Thread count
      */
-    static final AtomicInteger THREAD_NUMBER            = new AtomicInteger(0);
+    static final AtomicInteger THREAD_NUMBER = new AtomicInteger(0);
 
     /**
      * Every fixed-cycle schedule will have such an instance.
      */
-    private Map<String, SzTracerStatisticReporter> statReporters            = new ConcurrentHashMap<String, SzTracerStatisticReporter>();
+    private Map<String, SzTracerStatisticReporter> statReporters = new ConcurrentHashMap<String, SzTracerStatisticReporter>();
 
     /**
      * Period time, default {@link SzTracerStatisticReporterManager#DEFAULT_CYCLE_SECONDS}=60 s
      */
-    private long                                     cycleTime;
+    private long cycleTime;
 
     private ScheduledExecutorService executor;
 
@@ -56,8 +56,8 @@ public class SzTracerStatisticReporterManager {
             @Override
             public Thread newThread(Runnable r) {
                 final Thread thread = new Thread(r, "Tracer-TimedAppender-"
-                                                    + THREAD_NUMBER.incrementAndGet() + "-"
-                                                    + cycleTime);
+                        + THREAD_NUMBER.incrementAndGet() + "-"
+                        + cycleTime);
                 thread.setDaemon(true);
                 return thread;
             }
@@ -71,6 +71,7 @@ public class SzTracerStatisticReporterManager {
 
     /**
      * Get a stat Reporter instance by statTracerName
+     *
      * @param statTracerName Stat log tracer name
      * @return
      */
@@ -83,6 +84,7 @@ public class SzTracerStatisticReporterManager {
 
     /**
      * Save Stat Reporter instance
+     *
      * @param statisticReporter statisticReporter
      */
     public synchronized void addStatReporter(SzTracerStatisticReporter statisticReporter) {

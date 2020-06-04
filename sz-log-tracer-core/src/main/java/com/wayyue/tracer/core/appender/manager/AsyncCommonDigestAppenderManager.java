@@ -22,8 +22,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * @author liangen
- * @version $Id: AsyncCommonDigestAppenderManager.java, v 0.1 October 23, 2017 9：47 AM liangen Exp $
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public class AsyncCommonDigestAppenderManager {
     private final Map<String, TraceAppender> appenders = new ConcurrentHashMap<String, TraceAppender>();
@@ -95,8 +95,7 @@ public class AsyncCommonDigestAppenderManager {
 
     public void addAppender(String logType, TraceAppender appender, SpanEncoder encoder) {
         if (isAppenderOrEncoderExist(logType)) {
-            SynchronizingSelfLog.error("logType[" + logType
-                    + "] already is added AsyncCommonDigestAppenderManager");
+            SynchronizingSelfLog.error("logType[" + logType + "] already is added AsyncCommonDigestAppenderManager");
             return;
         }
 

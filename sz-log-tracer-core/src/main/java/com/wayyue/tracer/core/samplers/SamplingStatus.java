@@ -5,12 +5,12 @@ import java.util.Map;
 
 public class SamplingStatus {
 
-    private boolean             isSampled = false;
+    private boolean isSampled = false;
 
     /**
      * Allow tags to be placed at RootSpan
      */
-    private Map<String, Object> tags      = new HashMap<String, Object>();
+    private Map<String, Object> tags = new HashMap<String, Object>();
 
     public boolean isSampled() {
         return isSampled;

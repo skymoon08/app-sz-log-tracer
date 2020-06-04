@@ -19,8 +19,8 @@ public class HttpClientStatReporter extends AbstractSzTracerStatisticReporter {
     }
 
     @Override
-    public void doReportStat(SzTracerSpan SzTracerSpan) {
-        Map<String, String> tagsWithStr = SzTracerSpan.getTagsWithStr();
+    public void doReportStat(SzTracerSpan szTracerSpan) {
+        Map<String, String> tagsWithStr = szTracerSpan.getTagsWithStr();
         StatKey statKey = new StatKey();
         String localApp = tagsWithStr.get(CommonSpanTags.LOCAL_APP);
         String requestUrl = tagsWithStr.get(CommonSpanTags.REQUEST_URL);
@@ -33,11 +33,11 @@ public class HttpClientStatReporter extends AbstractSzTracerStatisticReporter {
         boolean success = isWebHttpClientSuccess(resultCode);
         statKey.setResult(success ? SzTracerConstant.STAT_FLAG_SUCCESS : SzTracerConstant.STAT_FLAG_FAILS);
 
-        statKey.setEnd(buildString(new String[] { TracerUtils.getLoadTestMark(SzTracerSpan) }));
+        statKey.setEnd(buildString(new String[] { TracerUtils.getLoadTestMark(szTracerSpan) }));
         //pressure mark
-        statKey.setLoadTest(TracerUtils.isLoadTest(SzTracerSpan));
+        statKey.setLoadTest(TracerUtils.isLoadTest(szTracerSpan));
         //value the count and duration
-        long duration = SzTracerSpan.getEndTime() - SzTracerSpan.getStartTime();
+        long duration = szTracerSpan.getEndTime() - szTracerSpan.getStartTime();
         long[] values = new long[] { 1, duration };
         //reserve
         this.addStat(statKey, values);

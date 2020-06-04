@@ -83,7 +83,7 @@ public class CommonSpanTags {
     /**
      * RPC_TRACE_NAME constants key for dubbo rpc transfer.
      */
-    public static final String RPC_TRACE_NAME = "dubbo.rpc.sofa.tracer";
+    public static final String RPC_TRACE_NAME = "dubbo.rpc.sz.tracer";
 
     /**
      * CLIENT_SERIALIZE_TIME records the rpc client serializes the request body time

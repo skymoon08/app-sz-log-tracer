@@ -14,17 +14,16 @@ import static java.util.Arrays.copyOf;
 public class SequenceGroups {
     public static <T> void addSequences(final T holder,
                                         final AtomicReferenceFieldUpdater<T, Sequence[]> updater,
-                                        final Cursored cursor, final Sequence... sequencesToAdd) {
+                                        final Cursored cursor,
+                                        final Sequence... sequencesToAdd) {
         long cursorSequence;
         Sequence[] updatedSequences;
         Sequence[] currentSequences;
 
         do {
             currentSequences = updater.get(holder);
-            updatedSequences = copyOf(currentSequences, currentSequences.length
-                                                        + sequencesToAdd.length);
+            updatedSequences = copyOf(currentSequences, currentSequences.length + sequencesToAdd.length);
             cursorSequence = cursor.getCursor();
-
             int index = currentSequences.length;
             for (Sequence sequence : sequencesToAdd) {
                 sequence.set(cursorSequence);

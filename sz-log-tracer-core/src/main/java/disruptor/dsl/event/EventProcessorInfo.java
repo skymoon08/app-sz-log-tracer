@@ -20,7 +20,7 @@ public class EventProcessorInfo<T> implements ConsumerInfo {
     private final EventProcessor eventprocessor;
     private final EventHandler<? super T> handler;
     private final SequenceBarrier barrier;
-    private boolean                       endOfChain = true;
+    private boolean endOfChain = true;
 
     public EventProcessorInfo(final EventProcessor eventprocessor, final EventHandler<? super T> handler,
                               final SequenceBarrier barrier) {
@@ -35,7 +35,7 @@ public class EventProcessorInfo<T> implements ConsumerInfo {
 
     @Override
     public Sequence[] getSequences() {
-        return new Sequence[] { eventprocessor.getSequence() };
+        return new Sequence[]{eventprocessor.getSequence()};
     }
 
     public EventHandler<? super T> getHandler() {

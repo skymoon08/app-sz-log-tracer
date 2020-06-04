@@ -12,13 +12,13 @@ import disruptor.strategy.WaitStrategy;
  * Copyright (C), 上海维跃信息科技有限公司
  * FileName: RingBuffer
  * Author:   zhanglong
- * Date:     2020/5/27 19:48
+ * Date:     2020/5/27
  * Description:
  */
 public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored, EventSequencer<E>, EventSink<E> {
 
     public static final long INITIAL_CURSOR_VALUE = Sequence.INITIAL_VALUE;
-    protected long           p1, p2, p3, p4, p5, p6, p7;
+    protected long p1, p2, p3, p4, p5, p6, p7;
 
     /**
      * Construct a RingBuffer with the full option set.
@@ -37,13 +37,13 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * @param factory      used to create the events within the ring buffer.
      * @param bufferSize   number of elements to create within the ring buffer.
      * @param waitStrategy used to determine how to wait for new elements to become available.
-     * @param <E>      used to create the events within the ring buffer.
+     * @param <E>          used to create the events within the ring buffer.
+     * @return RingBuffer
      * @throws IllegalArgumentException if bufferSize is less than 1 or not a power of 2
      * @see disruptor.sequence.MultiProducerSequencer
-     * @return RingBuffer
      */
     public static <E> RingBuffer<E> createMultiProducer(EventFactory<E> factory, int bufferSize,
-                                                                  WaitStrategy waitStrategy) {
+                                                        WaitStrategy waitStrategy) {
         MultiProducerSequencer sequencer = new MultiProducerSequencer(bufferSize, waitStrategy);
 
         return new RingBuffer<E>(factory, sequencer);
@@ -51,12 +51,13 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
 
     /**
      * Create a new multiple producer RingBuffer using the default wait strategy  {@link BlockingWaitStrategy}.
+     *
      * @param factory    used to create the events within the ring buffer.
      * @param bufferSize bufferSize
      * @param <E>        used to create the events within the ring buffer.
+     * @return ring buffer
      * @throws IllegalArgumentException if <tt>bufferSize</tt> is less than 1 or not a power of 2
      * @see MultiProducerSequencer
-     * @return ring buffer
      */
     public static <E> RingBuffer<E> createMultiProducer(EventFactory<E> factory, int bufferSize) {
         return createMultiProducer(factory, bufferSize, new BlockingWaitStrategy());
@@ -69,9 +70,9 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * @param bufferSize   number of elements to create within the ring buffer.
      * @param waitStrategy used to determine how to wait for new elements to become available.
      * @param <E>          used to create the events within the ring buffer.
+     * @return ring buffer
      * @throws IllegalArgumentException if bufferSize is less than 1 or not a power of 2
      * @see disruptor.sequence.SingleProducerSequencer
-     * @return ring buffer
      */
     public static <E> RingBuffer<E> createSingleProducer(EventFactory<E> factory, int bufferSize,
                                                          WaitStrategy waitStrategy) {
@@ -86,9 +87,9 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * @param factory    used to create the events within the ring buffer.
      * @param bufferSize number of elements to create within the ring buffer.
      * @param <E>        used to create the events within the ring buffer.
+     * @return ring buffer
      * @throws IllegalArgumentException if <tt>bufferSize</tt> is less than 1 or not a power of 2
      * @see disruptor.sequence.MultiProducerSequencer
-     * @return ring buffer
      */
     public static <E> RingBuffer<E> createSingleProducer(EventFactory<E> factory, int bufferSize) {
         return createSingleProducer(factory, bufferSize, new BlockingWaitStrategy());
@@ -102,8 +103,8 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * @param bufferSize   number of elements to create within the ring buffer.
      * @param waitStrategy used to determine how to wait for new elements to become available.
      * @param <E>          used to create events within the ring buffer.
-     * @throws IllegalArgumentException if bufferSize is less than 1 or not a power of 2
      * @return RingBuffer
+     * @throws IllegalArgumentException if bufferSize is less than 1 or not a power of 2
      */
     public static <E> RingBuffer<E> create(ProducerType producerType, EventFactory<E> factory,
                                            int bufferSize, WaitStrategy waitStrategy) {

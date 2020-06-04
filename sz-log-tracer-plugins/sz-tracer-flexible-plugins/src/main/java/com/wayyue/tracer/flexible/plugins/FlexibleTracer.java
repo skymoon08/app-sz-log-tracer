@@ -202,7 +202,6 @@ public class FlexibleTracer extends SzTracer {
         SzTracerSpanContext spanContext = SzTracerSpanContext.rootStart();
         spanContext.addBizBaggage(bizBaggage);
         spanContext.addSysBaggage(sysBaggage);
-        return new SzTracerSpan(this, System.currentTimeMillis(), null, StringUtils.EMPTY_STRING,
-            spanContext, null);
+        return new SzTracerSpan(this, System.currentTimeMillis(), null, StringUtils.EMPTY_STRING, spanContext, null);
     }
 }

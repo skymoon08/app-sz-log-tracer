@@ -88,14 +88,13 @@ public class SzTracerSpan implements Span {
      * @param szTracer            SzTracer
      * @param startTime           startTime
      * @param operationName       operationName
-     * @param SzTracerSpanContext SzTracerSpanContext
+     * @param szTracerSpanContext szTracerSpanContext
      * @param tags                tags
      */
     public SzTracerSpan(SzTracer szTracer, long startTime, String operationName,
-                        SzTracerSpanContext SzTracerSpanContext, Map<String, ?> tags) {
+                        SzTracerSpanContext szTracerSpanContext, Map<String, ?> tags) {
         this(szTracer, startTime, null, operationName,
-                SzTracerSpanContext != null ? SzTracerSpanContext : SzTracerSpanContext
-                        .rootStart(), tags);
+                szTracerSpanContext != null ? szTracerSpanContext : szTracerSpanContext.rootStart(), tags);
     }
 
     /**
@@ -150,11 +149,6 @@ public class SzTracerSpan implements Span {
     public void close() {
         this.finish();
     }
-
-//    @Override
-//    public void close() {
-//        this.finish();
-//    }
 
     @Override
     public Span setTag(String key, String value) {

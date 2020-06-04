@@ -24,14 +24,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @param <T> event implementation storing the data for sharing during exchange or parallel coordination of an event.
  */
 public final class BatchEventProcessor<T> implements EventProcessor {
-    private final AtomicBoolean           running          = new AtomicBoolean(false);
+    private final AtomicBoolean running = new AtomicBoolean(false);
     private ExceptionHandler<? super T> exceptionHandler = new FatalExceptionHandler();
 
     private final DataProvider<T> dataProvider;
-    private final SequenceBarrier         sequenceBarrier;
+    private final SequenceBarrier sequenceBarrier;
     private final EventHandler<? super T> eventHandler;
-    private final Sequence                sequence         = new Sequence(
-                                                               Sequencer.INITIAL_CURSOR_VALUE);
+    private final Sequence sequence = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
     private final TimeoutHandler timeoutHandler;
 
     /**
@@ -53,8 +52,7 @@ public final class BatchEventProcessor<T> implements EventProcessor {
             ((SequenceReportingEventHandler<?>) eventHandler).setSequenceCallback(sequence);
         }
 
-        timeoutHandler = (eventHandler instanceof TimeoutHandler) ? (TimeoutHandler) eventHandler
-            : null;
+        timeoutHandler = (eventHandler instanceof TimeoutHandler) ? (TimeoutHandler) eventHandler : null;
     }
 
     @Override
@@ -109,11 +107,10 @@ public final class BatchEventProcessor<T> implements EventProcessor {
 
                     while (nextSequence <= availableSequence) {
                         event = dataProvider.get(nextSequence);
-                        eventHandler
-                            .onEvent(event, nextSequence, nextSequence == availableSequence);
+                        eventHandler.onEvent(event, nextSequence, nextSequence == availableSequence);
                         nextSequence++;
                     }
-
+                    
                     sequence.set(availableSequence);
                 } catch (final TimeoutException e) {
                     notifyTimeout(sequence.get());

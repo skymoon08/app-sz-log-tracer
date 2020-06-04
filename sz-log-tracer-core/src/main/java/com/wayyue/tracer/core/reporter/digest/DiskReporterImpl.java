@@ -164,11 +164,9 @@ public class DiskReporterImpl extends AbstractDiskReporter {
             }
         }
         TraceAppender digestTraceAppender = LoadTestAwareAppender
-                .createLoadTestAwareTimedRollingFileAppender(this.digestLogType,
-                        this.digestRollingPolicy, this.digestLogReserveConfig);
+                .createLoadTestAwareTimedRollingFileAppender(this.digestLogType, this.digestRollingPolicy, this.digestLogReserveConfig);
         //registry digest
-        AsyncCommonDigestAppenderManager asyncDigestManager = SzTracerDigestReporterAsyncManager
-                .getSzTracerDigestReporterAsyncManager();
+        AsyncCommonDigestAppenderManager asyncDigestManager = SzTracerDigestReporterAsyncManager.getSzTracerDigestReporterAsyncManager();
         if (!asyncDigestManager.isAppenderAndEncoderExist(this.digestLogType)) {
             asyncDigestManager.addAppender(this.digestLogType, digestTraceAppender, this.contextEncoder);
         }

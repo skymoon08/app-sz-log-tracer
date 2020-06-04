@@ -6,7 +6,7 @@ import disruptor.sequence.SequenceBarrier;
 import disruptor.sequence.padding.Sequence;
 
 /**
- * Strategy employed for making {@link disruptor.event.EventProcessor}s wait on a cursor {@link disruptor.sequence.Sequence}.
+ * Strategy employed for making {@link disruptor.event.EventProcessor}s wait on a cursor {@link Sequence}.
  */
 public interface WaitStrategy {
     /**
@@ -27,9 +27,7 @@ public interface WaitStrategy {
      * @throws java.util.concurrent.TimeoutException TimeoutException
      */
     long waitFor(long sequence, Sequence cursor, Sequence dependentSequence, SequenceBarrier barrier)
-                                                                                                     throws AlertException,
-                                                                                                     InterruptedException,
-            TimeoutException;
+            throws AlertException, InterruptedException, TimeoutException;
 
     /**
      * Implementations should signal the waiting {@link disruptor.event.EventProcessor}s that the cursor has advanced.

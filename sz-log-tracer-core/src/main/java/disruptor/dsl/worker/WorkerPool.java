@@ -1,18 +1,3 @@
-/*
- * Copyright 2011 LMAX Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package disruptor.dsl.worker;
 
 import disruptor.buffer.RingBuffer;
@@ -34,9 +19,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @param <T> event to be processed by a pool of workers
  */
 public final class WorkerPool<T> {
-    private final AtomicBoolean      started      = new AtomicBoolean(false);
-    private final Sequence           workSequence = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
-    private final RingBuffer<T>      ringBuffer;
+    private final AtomicBoolean started = new AtomicBoolean(false);
+    private final Sequence workSequence = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
+    private final RingBuffer<T> ringBuffer;
     // WorkProcessors are created to wrap each of the provided WorkHandlers
     private final WorkProcessor<?>[] workProcessors;
 
@@ -60,7 +45,7 @@ public final class WorkerPool<T> {
 
         for (int i = 0; i < numWorkers; i++) {
             workProcessors[i] = new WorkProcessor<T>(ringBuffer, sequenceBarrier, workHandlers[i],
-                exceptionHandler, workSequence);
+                    exceptionHandler, workSequence);
         }
     }
 
@@ -83,7 +68,7 @@ public final class WorkerPool<T> {
 
         for (int i = 0; i < numWorkers; i++) {
             workProcessors[i] = new WorkProcessor<T>(ringBuffer, barrier, workHandlers[i],
-                exceptionHandler, workSequence);
+                    exceptionHandler, workSequence);
         }
 
         ringBuffer.addGatingSequences(getWorkerSequences());
@@ -114,7 +99,7 @@ public final class WorkerPool<T> {
     public RingBuffer<T> start(final Executor executor) {
         if (!started.compareAndSet(false, true)) {
             throw new IllegalStateException(
-                "WorkerPool has already been started and cannot be restarted until halted.");
+                    "WorkerPool has already been started and cannot be restarted until halted.");
         }
 
         final long cursor = ringBuffer.getCursor();

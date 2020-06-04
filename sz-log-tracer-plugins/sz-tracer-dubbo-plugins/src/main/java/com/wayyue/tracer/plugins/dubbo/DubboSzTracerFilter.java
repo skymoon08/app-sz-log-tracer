@@ -34,7 +34,7 @@ public class DubboSzTracerFilter implements Filter {
 
     private static final String BLANK = StringUtils.EMPTY_STRING;
 
-    private static final String SPAN_INVOKE_KEY = "sofa.current.span.key";
+    private static final String SPAN_INVOKE_KEY = "sz.current.span.key";
 
     private DubboConsumerSzTracer dubboConsumerSzTracer;
 
@@ -261,8 +261,8 @@ public class DubboSzTracerFilter implements Filter {
             isCalculateSampler = true;
         }
         String simpleName = invocation.getInvoker().getInterface().getSimpleName();
-        SzTracerSpan serverSpan = new SzTracerSpan(dubboProviderSzTracer.getSzTracer(),
-                System.currentTimeMillis(), simpleName, tracerSpanContext, tags);
+        SzTracerSpan serverSpan = new SzTracerSpan(dubboProviderSzTracer.getSzTracer(), System.currentTimeMillis(),
+                simpleName, tracerSpanContext, tags);
         // calculate sampler
         if (isCalculateSampler) {
             Sampler sampler = dubboProviderSzTracer.getSzTracer().getSampler();
@@ -347,12 +347,12 @@ public class DubboSzTracerFilter implements Filter {
         tagsStr.put(CommonSpanTags.LOCAL_PORT, String.valueOf(rpcContext.getRemotePort()));
     }
 
-    private void appendRpcClientSpanTags(Invoker<?> invoker, SzTracerSpan tracerSpan) {
-        if (tracerSpan == null) {
+    private void appendRpcClientSpanTags(Invoker<?> invoker, SzTracerSpan szTracerSpan) {
+        if (szTracerSpan == null) {
             return;
         }
         RpcContext rpcContext = RpcContext.getContext();
-        Map<String, String> tagsStr = tracerSpan.getTagsWithStr();
+        Map<String, String> tagsStr = szTracerSpan.getTagsWithStr();
         tagsStr.put(Tags.SPAN_KIND.getKey(), spanKind(rpcContext));
         String protocol = rpcContext.getUrl().getProtocol();
         tagsStr.put(CommonSpanTags.PROTOCOL, protocol == null ? BLANK : protocol);

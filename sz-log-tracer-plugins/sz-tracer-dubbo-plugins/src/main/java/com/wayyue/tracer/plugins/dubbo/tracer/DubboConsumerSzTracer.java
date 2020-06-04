@@ -60,10 +60,8 @@ public class DubboConsumerSzTracer extends AbstractClientTracer {
     protected AbstractSzTracerStatisticReporter generateClientStatReporter() {
         DubboLogEnum dubboClientStat = DubboLogEnum.DUBBO_CLIENT_STAT;
         String statLog = dubboClientStat.getDefaultLogName();
-        String statRollingPolicy = SzTracerConfiguration.getRollingPolicy(dubboClientStat
-            .getRollingKey());
-        String statLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(dubboClientStat
-            .getLogNameKey());
+        String statRollingPolicy = SzTracerConfiguration.getRollingPolicy(dubboClientStat.getRollingKey());
+        String statLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(dubboClientStat.getLogNameKey());
         if (SzTracerConfiguration.isJsonOutput()) {
             return new DubboClientStatJsonReporter(statLog, statRollingPolicy, statLogReserveConfig);
         } else {

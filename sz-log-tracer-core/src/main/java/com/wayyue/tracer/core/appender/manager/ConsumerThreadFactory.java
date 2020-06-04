@@ -3,9 +3,8 @@ package com.wayyue.tracer.core.appender.manager;
 import java.util.concurrent.ThreadFactory;
 
 /**
- *
- * @author liangen
- * @version $Id: ConsumerThreadFactory.java, v 0.1 October 23, 2017 10:09 AM liangen Exp $
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public class ConsumerThreadFactory implements ThreadFactory {
     private String workName;
@@ -22,7 +21,7 @@ public class ConsumerThreadFactory implements ThreadFactory {
     /**
      * Setter method for property <tt>workName</tt>.
      *
-     * @param workName  value to be assigned to property workName
+     * @param workName value to be assigned to property workName
      */
     public void setWorkName(String workName) {
         this.workName = workName;

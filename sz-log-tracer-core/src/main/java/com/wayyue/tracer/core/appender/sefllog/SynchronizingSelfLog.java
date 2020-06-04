@@ -15,7 +15,8 @@ import java.io.StringWriter;
  * Self-synchronized SelfLog, used only in the middleware,
  * after Solving SelfLog asynchronous, it is used when printing logs in some Manager initialization
  *
- * @author luoguimu123
+ * @author jinming.xiao
+ * @since 2020/06/01
  * @version $Id: SynchronizingSelfLog.java, v 0.1 November 21, 2017 7:45 PM luoguimu123 Exp $
  */
 public class SynchronizingSelfLog {

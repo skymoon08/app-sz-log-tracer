@@ -9,8 +9,8 @@ import java.io.IOException;
  * <p>
  * Tracer Span log encoder, optimized for asynchronous queue calls, does not allow multi-threaded concurrent calls
  * </p>
- * @author yangguanchao
- * @since 2017/06/25
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public interface SpanEncoder<T extends Span> {
 

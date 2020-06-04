@@ -24,7 +24,7 @@ import java.util.Map;
 public class ConsumerRepository<T> implements Iterable<ConsumerInfo> {
     private final Map<EventHandler<?>, EventProcessorInfo<T>> eventProcessorInfoByEventHandler = new IdentityHashMap<EventHandler<?>, EventProcessorInfo<T>>();
     private final Map<Sequence, ConsumerInfo> eventProcessorInfoBySequence = new IdentityHashMap<Sequence, ConsumerInfo>();
-    private final Collection<ConsumerInfo>                    consumerInfos                    = new ArrayList<ConsumerInfo>();
+    private final Collection<ConsumerInfo> consumerInfos = new ArrayList<ConsumerInfo>();
 
     public void add(final EventProcessor eventprocessor, final EventHandler<? super T> handler,
                     final SequenceBarrier barrier) {
@@ -62,13 +62,12 @@ public class ConsumerRepository<T> implements Iterable<ConsumerInfo> {
     }
 
     public EventProcessor getEventProcessorFor(final EventHandler<T> handler) {
-        final EventProcessorInfo<T> eventprocessorInfo = getEventProcessorInfo(handler);
-        if (eventprocessorInfo == null) {
-            throw new IllegalArgumentException("The event handler " + handler
-                    + " is not processing events.");
+        final EventProcessorInfo<T> eventProcessorInfo = getEventProcessorInfo(handler);
+        if (eventProcessorInfo == null) {
+            throw new IllegalArgumentException("The event handler " + handler + " is not processing events.");
         }
 
-        return eventprocessorInfo.getEventProcessor();
+        return eventProcessorInfo.getEventProcessor();
     }
 
     public Sequence getSequenceFor(final EventHandler<T> handler) {

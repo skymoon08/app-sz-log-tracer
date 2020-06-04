@@ -7,8 +7,8 @@ import io.opentracing.propagation.TextMap;
 /**
  * TextMapFormatter
  *
- * @author yangguanchao
- * @since 2017/06/23
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public class TextMapB3Formatter extends AbstractTextB3Formatter {
 

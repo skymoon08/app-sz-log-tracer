@@ -6,8 +6,8 @@ import com.wayyue.tracer.core.span.SzTracerSpan;
 /**
  * SzTraceContext allows an application access and manipulation of the current span state.
  *
- * @author yangguanchao
- * @since  2017/06/17
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public interface SzTraceContext {
 

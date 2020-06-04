@@ -13,6 +13,7 @@ import io.opentracing.tag.Tags;
 import java.util.Map;
 
 /**
+ *
  **/
 public class FlexibleStatJsonReporter extends AbstractSzTracerStatisticReporter {
 
@@ -31,13 +32,12 @@ public class FlexibleStatJsonReporter extends AbstractSzTracerStatisticReporter 
         statKey.setLoadTest(TracerUtils.isLoadTest(tracerSpan));
         //success
         String error = tagsWithStr.get(Tags.ERROR.getKey());
-        statKey.setResult(StringUtils.isBlank(error) ? SzTracerConstant.STAT_FLAG_SUCCESS
-            : SzTracerConstant.STAT_FLAG_FAILS);
+        statKey.setResult(StringUtils.isBlank(error) ? SzTracerConstant.STAT_FLAG_SUCCESS : SzTracerConstant.STAT_FLAG_FAILS);
         //end
         statKey.setEnd(TracerUtils.getLoadTestMark(tracerSpan));
         //value the count and duration
         long duration = tracerSpan.getEndTime() - tracerSpan.getStartTime();
-        long[] values = new long[] { 1, duration };
+        long[] values = new long[]{1, duration};
         //reserve
         this.addStat(statKey, values);
     }

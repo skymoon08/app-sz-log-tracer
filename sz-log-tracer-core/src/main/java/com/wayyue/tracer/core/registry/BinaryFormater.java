@@ -13,8 +13,8 @@ import java.nio.ByteBuffer;
  * <p>
  *     Note: only supports the heap memory does not support outside the heap memory
  * </p>
- * @author yangguanchao
- * @since 2017/06/23
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public class BinaryFormater implements RegistryExtractorInjector<ByteBuffer> {
 
@@ -49,13 +49,10 @@ public class BinaryFormater implements RegistryExtractorInjector<ByteBuffer> {
             //value byte arrays
             byte[] contextDataBytes = new byte[carrier.getInt()];
             carrier.get(contextDataBytes);
-            String spanContextInfos = new String(contextDataBytes,
-                SzTracerConstant.DEFAULT_UTF8_CHARSET);
+            String spanContextInfos = new String(contextDataBytes, SzTracerConstant.DEFAULT_UTF8_CHARSET);
             return SzTracerSpanContext.deserializeFromString(spanContextInfos);
         } catch (Exception e) {
-            SelfDefineLog.error(
-                    "BinaryFormater.extract Error.Recover by root start",
-                    e);
+            SelfDefineLog.error("BinaryFormater.extract Error.Recover by root start", e);
             return SzTracerSpanContext.rootStart();
         }
     }

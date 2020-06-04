@@ -32,12 +32,4 @@ public class SpanExtensionFactory {
             }
         }
     }
-
-    public static void logStoppedSpanInRunnable(Span currentSpan) {
-        if (!spanExtensions.isEmpty()) {
-            for (SpanExtension spanExtension : spanExtensions) {
-                spanExtension.logStoppedSpanInRunnable(currentSpan);
-            }
-        }
-    }
 }

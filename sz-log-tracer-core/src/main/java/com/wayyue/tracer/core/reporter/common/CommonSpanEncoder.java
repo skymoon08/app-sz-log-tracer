@@ -34,7 +34,6 @@ public class CommonSpanEncoder implements SpanEncoder<CommonLogSpan> {
             //Ensure that the construct common is also carried
             .append(commonLogSpan.getTagsWithStr().get(SpanTags.CURR_APP_TAG.getKey()))
             .append(spanContext.getTraceId()).append(spanContext.getSpanId());
-
         this.appendStr(xsb, commonLogSpan);
         return xsb.toString();
     }

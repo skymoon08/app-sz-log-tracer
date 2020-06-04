@@ -1,19 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.wayyue.tracer.core.appender.manager;
 
 import com.wayyue.tracer.core.appender.TraceAppender;
@@ -43,27 +27,29 @@ public class AsyncCommonAppenderManager {
     private RingBuffer<StringEvent> ringBuffer;
     private final ConsumerThreadFactory threadFactory = new ConsumerThreadFactory();
 
-    private List<Consumer>              consumers;
+    private List<Consumer> consumers;
 
-    /** Dedicated for SelfLog, no need to open three Consumers */
-    private static final int            DEFAULT_CONSUMER_NUMBER       = 1;
+    /**
+     * Dedicated for SelfDefineLog, no need to open three Consumers
+     */
+    private static final int DEFAULT_CONSUMER_NUMBER = 1;
 
-    private boolean                     allowDiscard;
-    private boolean                     isOutDiscardNumber;
-    private boolean                     isOutDiscardId;
-    private long                        discardOutThreshold;
-    private PaddedAtomicLong            discardCount;
+    private boolean allowDiscard;
+    private boolean isOutDiscardNumber;
+    private boolean isOutDiscardId;
+    private long discardOutThreshold;
+    private PaddedAtomicLong discardCount;
 
-    private static final String         DEFAULT_ALLOW_DISCARD         = "true";
-    private static final String         DEFAULT_IS_OUT_DISCARD_NUMBER = "true";
-    private static final String         DEFAULT_IS_OUT_DISCARD_ID     = "false";
+    private static final String DEFAULT_ALLOW_DISCARD = "true";
+    private static final String DEFAULT_IS_OUT_DISCARD_NUMBER = "true";
+    private static final String DEFAULT_IS_OUT_DISCARD_ID = "false";
 
-    private static final String         DEFAULT_DISCARD_OUT_THRESHOLD = "500";
+    private static final String DEFAULT_DISCARD_OUT_THRESHOLD = "500";
 
     public AsyncCommonAppenderManager(int queueSize, int consumerNumber, String logName) {
         int realQueueSize = 1 << (32 - Integer.numberOfLeadingZeros(queueSize - 1));
         disruptor = new Disruptor<StringEvent>(new StringEventFactory(), realQueueSize,
-            threadFactory, ProducerType.MULTI, new BlockingWaitStrategy());
+                threadFactory, ProducerType.MULTI, new BlockingWaitStrategy());
 
         this.consumers = new ArrayList<Consumer>(consumerNumber);
 
@@ -75,17 +61,17 @@ public class AsyncCommonAppenderManager {
         }
 
         this.allowDiscard = Boolean.parseBoolean(SzTracerConfiguration.getProperty(
-            SzTracerConfiguration.TRACER_ASYNC_APPENDER_ALLOW_DISCARD, DEFAULT_ALLOW_DISCARD));
+                SzTracerConfiguration.TRACER_ASYNC_APPENDER_ALLOW_DISCARD, DEFAULT_ALLOW_DISCARD));
         if (allowDiscard) {
             this.isOutDiscardNumber = Boolean.parseBoolean(SzTracerConfiguration.getProperty(
-                SzTracerConfiguration.TRACER_ASYNC_APPENDER_IS_OUT_DISCARD_NUMBER,
-                DEFAULT_IS_OUT_DISCARD_NUMBER));
+                    SzTracerConfiguration.TRACER_ASYNC_APPENDER_IS_OUT_DISCARD_NUMBER,
+                    DEFAULT_IS_OUT_DISCARD_NUMBER));
             this.isOutDiscardId = Boolean.parseBoolean(SzTracerConfiguration.getProperty(
-                SzTracerConfiguration.TRACER_ASYNC_APPENDER_IS_OUT_DISCARD_ID,
-                DEFAULT_IS_OUT_DISCARD_ID));
+                    SzTracerConfiguration.TRACER_ASYNC_APPENDER_IS_OUT_DISCARD_ID,
+                    DEFAULT_IS_OUT_DISCARD_ID));
             this.discardOutThreshold = Long.parseLong(SzTracerConfiguration.getProperty(
-                SzTracerConfiguration.TRACER_ASYNC_APPENDER_DISCARD_OUT_THRESHOLD,
-                DEFAULT_DISCARD_OUT_THRESHOLD));
+                    SzTracerConfiguration.TRACER_ASYNC_APPENDER_DISCARD_OUT_THRESHOLD,
+                    DEFAULT_DISCARD_OUT_THRESHOLD));
 
             if (isOutDiscardNumber) {
                 this.discardCount = new PaddedAtomicLong(0L);
@@ -93,17 +79,17 @@ public class AsyncCommonAppenderManager {
         }
 
         String globalLogReserveDay = SzTracerConfiguration.getProperty(
-            SzTracerConfiguration.TRACER_GLOBAL_LOG_RESERVE_DAY,
-            String.valueOf(SzTracerConfiguration.DEFAULT_LOG_RESERVE_DAY));
+                SzTracerConfiguration.TRACER_GLOBAL_LOG_RESERVE_DAY,
+                String.valueOf(SzTracerConfiguration.DEFAULT_LOG_RESERVE_DAY));
         String rollingPolicy = SzTracerConfiguration
-            .getProperty(SzTracerConfiguration.TRACER_GLOBAL_ROLLING_KEY);
+                .getProperty(SzTracerConfiguration.TRACER_GLOBAL_ROLLING_KEY);
 
         if (StringUtils.isBlank(rollingPolicy)) {
             rollingPolicy = TimedRollingFileAppender.DAILY_ROLLING_PATTERN;
         }
 
         this.appender = new TimedRollingFileAppender(logName, rollingPolicy,
-            String.valueOf(globalLogReserveDay));
+                String.valueOf(globalLogReserveDay));
     }
 
     public AsyncCommonAppenderManager(int queueSize, String logName) {
@@ -169,7 +155,7 @@ public class AsyncCommonAppenderManager {
                         SynchronizingSelfLog.error("fail to async write log", e);
                     } else {
                         SynchronizingSelfLog.error(
-                            "fail to async write log.And the SzTracerSpanContext is null", e);
+                                "fail to async write log.And the SzTracerSpanContext is null", e);
                     }
 
                 }

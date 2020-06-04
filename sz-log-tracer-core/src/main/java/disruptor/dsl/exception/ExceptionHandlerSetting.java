@@ -30,7 +30,7 @@ public class ExceptionHandlerSetting<T> {
      */
     public void with(ExceptionHandler<? super T> exceptionHandler) {
         ((BatchEventProcessor<T>) consumerRepository.getEventProcessorFor(eventHandler))
-            .setExceptionHandler(exceptionHandler);
+                .setExceptionHandler(exceptionHandler);
         consumerRepository.getBarrierFor(eventHandler).alert();
     }
 }

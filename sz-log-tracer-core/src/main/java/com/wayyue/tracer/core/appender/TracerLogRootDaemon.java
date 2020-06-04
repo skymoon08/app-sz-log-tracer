@@ -14,8 +14,8 @@ import java.nio.charset.Charset;
  * <p>
  * Not obtained from the configuration project, obtained directly from the system properties
  *
- * @author yangguanchao
- * @since 2017/06/25
+ * @author jinming.xiao
+ * @since 2020/06/01
  */
 public class TracerLogRootDaemon {
 

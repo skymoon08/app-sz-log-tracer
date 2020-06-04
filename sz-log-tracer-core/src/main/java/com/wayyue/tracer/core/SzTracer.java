@@ -94,7 +94,7 @@ public class SzTracer implements Tracer {
 //
 //    // TODO: 2020/5/27
 //    @Override
-//    pub     lic Scope activateSpan(Span span) {
+//    public Scope activateSpan(Span span) {
 //        return null;
 //    }
 
@@ -132,8 +132,7 @@ public class SzTracer implements Tracer {
         }
         //invoke listener
         this.invokeReportListeners(span);
-        if (span.isClient()
-                || this.getTracerType().equalsIgnoreCase(ComponentNameConstants.FLEXIBLE)) {
+        if (span.isClient() || this.getTracerType().equalsIgnoreCase(ComponentNameConstants.FLEXIBLE)) {
             if (this.clientReporter != null) {
                 this.clientReporter.report(span);
             }
@@ -477,8 +476,7 @@ public class SzTracer implements Tracer {
             } catch (Exception e) {
                 SelfDefineLog.error("Failed to get tracer sampler strategy;");
             }
-            return new SzTracer(this.tracerType, this.clientReporter, this.serverReporter,
-                    this.sampler, this.tracerTags);
+            return new SzTracer(this.tracerType, this.clientReporter, this.serverReporter, this.sampler, this.tracerTags);
         }
     }
 }

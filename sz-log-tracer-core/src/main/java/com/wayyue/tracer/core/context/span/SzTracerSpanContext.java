@@ -15,58 +15,58 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SzTracerSpanContext implements SpanContext {
 
     //spanId separator
-    public static final String        RPC_ID_SEPARATOR       = ".";
+    public static final String RPC_ID_SEPARATOR = ".";
 
     //======================== The following is the key for serializing data ========================
 
-    private static final String       TRACE_ID_KET           = "tcid";
+    private static final String TRACE_ID_KET = "tcid";
 
-    private static final String       SPAN_ID_KET            = "spid";
+    private static final String SPAN_ID_KET = "spid";
 
-    private static final String       PARENT_SPAN_ID_KET     = "pspid";
+    private static final String PARENT_SPAN_ID_KET = "pspid";
 
-    private static final String       SAMPLE_KET             = "sample";
+    private static final String SAMPLE_KET = "sample";
 
     /**
      * The serialization system transparently passes the prefix of the attribute key
      */
-    private static final String       SYS_BAGGAGE_PREFIX_KEY = "_sys_";
+    private static final String SYS_BAGGAGE_PREFIX_KEY = "_sys_";
 
-    private String                    traceId                = StringUtils.EMPTY_STRING;
+    private String traceId = StringUtils.EMPTY_STRING;
 
-    private String                    spanId                 = StringUtils.EMPTY_STRING;
+    private String spanId = StringUtils.EMPTY_STRING;
 
-    private String                    parentId               = StringUtils.EMPTY_STRING;
+    private String parentId = StringUtils.EMPTY_STRING;
 
     /**
      * Default will not be sampled
      */
-    private boolean                   isSampled              = false;
+    private boolean isSampled = false;
 
     /**
      * The system transparently transmits data,
      * mainly refers to the transparent transmission data of the system dimension.
      * Note that this field cannot be used for transparent transmission of business.
      */
-    private final Map<String, String> sysBaggage             = new ConcurrentHashMap<String, String>();
+    private final Map<String, String> sysBaggage = new ConcurrentHashMap<String, String>();
 
     /**
      * Transparent transmission of data, mainly refers to the transparent transmission data of the business
      */
-    private final Map<String, String> bizBaggage             = new ConcurrentHashMap<String, String>();
+    private final Map<String, String> bizBaggage = new ConcurrentHashMap<String, String>();
 
     /**
      * sub-context counter
      */
-    private AtomicInteger childContextIndex      = new AtomicInteger(0);
+    private AtomicInteger childContextIndex = new AtomicInteger(0);
 
     /**
      * clone a SzTracerSpanContext instance
+     *
      * @return
      */
     public SzTracerSpanContext cloneInstance() {
-        SzTracerSpanContext spanContext = new SzTracerSpanContext(this.traceId, this.spanId,
-                this.parentId, this.isSampled);
+        SzTracerSpanContext spanContext = new SzTracerSpanContext(this.traceId, this.spanId, this.parentId, this.isSampled);
         spanContext.addSysBaggage(this.sysBaggage);
         spanContext.addBizBaggage(this.bizBaggage);
         spanContext.childContextIndex = this.childContextIndex;
@@ -111,6 +111,7 @@ public class SzTracerSpanContext implements SpanContext {
 
     /**
      * return both system and business baggage
+     *
      * @return Iterable
      */
     @Override
@@ -127,6 +128,7 @@ public class SzTracerSpanContext implements SpanContext {
 
     /**
      * return key information string for SzTracerSpanContext
+     *
      * @return
      */
     private String contextAsString() {
@@ -136,8 +138,9 @@ public class SzTracerSpanContext implements SpanContext {
     /**
      * Serialize the Penetration property in Tracer into a String
      * <p>
-     *     This method is generally used internally by Tracer or directly integrated with Tracer.
+     * This method is generally used internally by Tracer or directly integrated with Tracer.
      * </p>
+     *
      * @return
      */
     public String getBizSerializedBaggage() {
@@ -152,8 +155,9 @@ public class SzTracerSpanContext implements SpanContext {
      * deserialize string to map
      *
      * <p>
-     *     This method is generally used internally by Tracer or directly integrated with Tracer.
+     * This method is generally used internally by Tracer or directly integrated with Tracer.
      * </p>
+     *
      * @param bizBaggageAttrs serialized penetration properties
      */
     public void deserializeBizBaggage(String bizBaggageAttrs) {
@@ -169,12 +173,9 @@ public class SzTracerSpanContext implements SpanContext {
 
     public void deserializeSysBaggage(String sysBaggageAttrs) {
         StringUtils.stringToMap(sysBaggageAttrs, this.sysBaggage);
-
         if (StringUtils.isNotBlank(sysBaggageAttrs)) {
             if (sysBaggageAttrs.length() > TracerUtils.getSysBaggageMaxLength() / 2) {
-                SelfDefineLog
-                        .infoWithTraceId("Get system baggage from upstream system, and the length is "
-                                + sysBaggageAttrs.length());
+                SelfDefineLog.infoWithTraceId("Get system baggage from upstream system, and the length is " + sysBaggageAttrs.length());
             }
         }
     }
@@ -186,18 +187,13 @@ public class SzTracerSpanContext implements SpanContext {
      */
     public String serializeSpanContext() {
         StringBuilder serializedValue = new StringBuilder();
-        serializedValue.append(TRACE_ID_KET).append(StringUtils.EQUAL).append(traceId)
-                .append(StringUtils.AND);
-        serializedValue.append(SPAN_ID_KET).append(StringUtils.EQUAL).append(spanId)
-                .append(StringUtils.AND);
-        serializedValue.append(PARENT_SPAN_ID_KET).append(StringUtils.EQUAL).append(parentId)
-                .append(StringUtils.AND);
-        serializedValue.append(SAMPLE_KET).append(StringUtils.EQUAL).append(isSampled)
-                .append(StringUtils.AND);
+        serializedValue.append(TRACE_ID_KET).append(StringUtils.EQUAL).append(traceId).append(StringUtils.AND);
+        serializedValue.append(SPAN_ID_KET).append(StringUtils.EQUAL).append(spanId).append(StringUtils.AND);
+        serializedValue.append(PARENT_SPAN_ID_KET).append(StringUtils.EQUAL).append(parentId).append(StringUtils.AND);
+        serializedValue.append(SAMPLE_KET).append(StringUtils.EQUAL).append(isSampled).append(StringUtils.AND);
         //system bizBaggage
         if (this.sysBaggage.size() > 0) {
-            serializedValue.append(StringUtils.mapToStringWithPrefix(this.sysBaggage,
-                    SYS_BAGGAGE_PREFIX_KEY));
+            serializedValue.append(StringUtils.mapToStringWithPrefix(this.sysBaggage, SYS_BAGGAGE_PREFIX_KEY));
         }
         //bizBaggage
         if (this.bizBaggage.size() > 0) {
@@ -207,8 +203,8 @@ public class SzTracerSpanContext implements SpanContext {
     }
 
     /**
-     *
      * Deserialize and restore a SzTracerSpanContext, reciprocal with {@link SzTracerSpanContext#serializeSpanContext()}
+     *
      * @param deserializeValue deserialize string, format: tcid:0,spid:1
      * @return SzTracerSpanContext
      */
@@ -217,7 +213,8 @@ public class SzTracerSpanContext implements SpanContext {
             return SzTracerSpanContext.rootStart();
         }
         //default value for SzTracerSpanContext
-        String traceId = TraceIdGenerator.generate();
+
+        String traceId = TraceIdGenerator.generate(); // TODO: 2020/6/2 traceId生成
         String spanId = SzTracer.ROOT_SPAN_ID;
         String parentId = StringUtils.EMPTY_STRING;
         //sampled default is false
@@ -262,8 +259,7 @@ public class SzTracerSpanContext implements SpanContext {
                 baggage.put(key, value);
             }
         }
-        SzTracerSpanContext SzTracerSpanContext = new SzTracerSpanContext(traceId, spanId,
-                parentId, sampled);
+        SzTracerSpanContext SzTracerSpanContext = new SzTracerSpanContext(traceId, spanId, parentId, sampled);
         if (sysBaggage.size() > 0) {
             SzTracerSpanContext.addSysBaggage(sysBaggage);
         }
@@ -275,9 +271,10 @@ public class SzTracerSpanContext implements SpanContext {
 
     /**
      * As root start ,it will be return a new SzTracerSpanContext
-     *
+     * <p>
      * Note:1.Leave this interface, do not dock the specific tracer implementation, mainly to remedy when an exception occurs in serialization or deserialization
-     *      2.This method cannot be called at will, the correct entry should be {@link SzTracer.SzTracerSpanBuilder#createRootSpanContext()}
+     * 2.This method cannot be called at will, the correct entry should be {@link SzTracer.SzTracerSpanBuilder#createRootSpanContext()} ()}
+     *
      * @return root node
      */
     public static SzTracerSpanContext rootStart() {
@@ -287,17 +284,17 @@ public class SzTracerSpanContext implements SpanContext {
     public static SzTracerSpanContext rootStart(boolean isSampled) {
         //create traceId
         String traceId = TraceIdGenerator.generate();
-        return new SzTracerSpanContext(traceId, SzTracer.ROOT_SPAN_ID,
-                StringUtils.EMPTY_STRING, isSampled);
+        return new SzTracerSpanContext(traceId, SzTracer.ROOT_SPAN_ID, StringUtils.EMPTY_STRING, isSampled);
     }
 
     private String genParentSpanId(String spanId) {
-        return (StringUtils.isBlank(spanId) || spanId.lastIndexOf(RPC_ID_SEPARATOR) < 0) ? StringUtils.EMPTY_STRING
-                : spanId.substring(0, spanId.lastIndexOf(RPC_ID_SEPARATOR));
+        return (StringUtils.isBlank(spanId) || spanId.lastIndexOf(RPC_ID_SEPARATOR) < 0) ?
+                StringUtils.EMPTY_STRING : spanId.substring(0, spanId.lastIndexOf(RPC_ID_SEPARATOR));
     }
 
     /**
      * Allow to set traceId
+     *
      * @param traceId traceId
      */
     public void setTraceId(String traceId) {
@@ -306,6 +303,7 @@ public class SzTracerSpanContext implements SpanContext {
 
     /**
      * Allow to set spanId
+     *
      * @param spanId spanId
      */
     public void setSpanId(String spanId) {
