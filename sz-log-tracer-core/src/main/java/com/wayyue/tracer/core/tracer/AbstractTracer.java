@@ -111,8 +111,7 @@ public abstract class AbstractTracer {
         } finally {
             if (clientSpan != null) {
                 clientSpan.setTag(Tags.SPAN_KIND.getKey(), Tags.SPAN_KIND_CLIENT);
-                clientSpan.setTag(CommonSpanTags.CURRENT_THREAD_NAME, Thread.currentThread()
-                        .getName());
+                clientSpan.setTag(CommonSpanTags.CURRENT_THREAD_NAME, Thread.currentThread().getName());
                 // log
                 clientSpan.log(LogData.CLIENT_SEND_EVENT_VALUE);
                 // Put into the thread context
