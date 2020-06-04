@@ -30,8 +30,7 @@ public final class LoadTestAwareAppender implements TraceAppender {
     }
 
     public static LoadTestAwareAppender createLoadTestAwareTimedRollingFileAppender(String logName,String rollingPolicy,String logReserveConfig) {
-        TraceAppender nonLoadTestTraceAppender = new TimedRollingFileAppender(logName,
-            rollingPolicy, logReserveConfig);
+        TraceAppender nonLoadTestTraceAppender = new TimedRollingFileAppender(logName, rollingPolicy, logReserveConfig);
         TraceAppender loadTestTraceAppender = new TimedRollingFileAppender("shadow" + File.separator + logName, rollingPolicy, logReserveConfig);
         return new LoadTestAwareAppender(nonLoadTestTraceAppender, loadTestTraceAppender);
     }

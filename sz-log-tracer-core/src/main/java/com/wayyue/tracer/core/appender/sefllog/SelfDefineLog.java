@@ -16,27 +16,27 @@ import java.io.StringWriter;
  */
 public class SelfDefineLog {
 
-        static private final String               ERROR_PREFIX  = "[ERROR] ";
-        static private final String               WARN_PREFIX   = "[WARN]  ";
-        static private final String               INFO_PREFIX   = "[INFO]  ";
+    static private final String ERROR_PREFIX = "[ERROR] ";
+    static private final String WARN_PREFIX = "[WARN]  ";
+    static private final String INFO_PREFIX = "[INFO]  ";
 
-        /**
-         * Log file name
-         */
-        static protected final String             SELF_LOG_FILE = "tracer-self.log";
+    /**
+     * Log file name
+     */
+    static protected final String SELF_LOG_FILE = "tracer-self.log";
 
-        static private AsyncCommonAppenderManager selfLogAppenderManager;
+    static private AsyncCommonAppenderManager selfLogAppenderManager;
 
-        static {
+    static {
         selfLogAppenderManager = new AsyncCommonAppenderManager(1024, SELF_LOG_FILE);
         selfLogAppenderManager.start("SelfLogAppender");
     }
 
-        /**
-         * @param log
-         * @param e
-         */
-        public static void error(String log, Throwable e) {
+    /**
+     * @param log
+     * @param e
+     */
+    public static void error(String log, Throwable e) {
         try {
             String timestamp = Timestamp.currentTime();
             StringWriter sw = new StringWriter(4096);
@@ -51,13 +51,13 @@ public class SelfDefineLog {
         }
     }
 
-        /**
-         * Print error log with current thread's TraceId
-         *
-         * @param log
-         * @param e
-         */
-        public static void errorWithTraceId(String log, Throwable e) {
+    /**
+     * Print error log with current thread's TraceId
+     *
+     * @param log
+     * @param e
+     */
+    public static void errorWithTraceId(String log, Throwable e) {
         try {
             String timestamp = Timestamp.currentTime();
             StringWriter sw = new StringWriter(4096);
@@ -73,46 +73,46 @@ public class SelfDefineLog {
         }
     }
 
-        public static void error(String log) {
+    public static void error(String log) {
         doLog(log, ERROR_PREFIX);
     }
 
-        /**
-         * Print error log with current thread's TraceId
-         *
-         * @param log
-         * @param traceId traceId
-         */
-        public static void errorWithTraceId(String log, String traceId) {
+    /**
+     * Print error log with current thread's TraceId
+     *
+     * @param log
+     * @param traceId traceId
+     */
+    public static void errorWithTraceId(String log, String traceId) {
         doLog(log, ERROR_PREFIX + "[" + traceId + "]");
     }
 
-        /**
-         * Print error log with current thread's TraceId
-         *
-         * @param log
-         */
-        public static void errorWithTraceId(String log) {
+    /**
+     * Print error log with current thread's TraceId
+     *
+     * @param log
+     */
+    public static void errorWithTraceId(String log) {
         doLog(log, ERROR_PREFIX + "[" + TracerUtils.getTraceId() + "]");
     }
 
-        public static void warn(String log) {
+    public static void warn(String log) {
         doLog(log, WARN_PREFIX);
     }
 
-        public static void info(String log) {
+    public static void info(String log) {
         doLog(log, INFO_PREFIX);
     }
 
-        public static void infoWithTraceId(String log) {
+    public static void infoWithTraceId(String log) {
         doLog(log, INFO_PREFIX + "[" + TracerUtils.getTraceId() + "]");
     }
 
-        public static void flush() {
+    public static void flush() {
         //async flush, do nothing.
     }
 
-        static private void doLog(String log, String prefix) {
+    static private void doLog(String log, String prefix) {
         try {
             String timestamp = Timestamp.currentTime();
             StringBuilder sb = new StringBuilder();

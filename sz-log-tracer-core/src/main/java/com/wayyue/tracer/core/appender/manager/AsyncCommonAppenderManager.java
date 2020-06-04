@@ -81,8 +81,7 @@ public class AsyncCommonAppenderManager {
         String globalLogReserveDay = SzTracerConfiguration.getProperty(
                 SzTracerConfiguration.TRACER_GLOBAL_LOG_RESERVE_DAY,
                 String.valueOf(SzTracerConfiguration.DEFAULT_LOG_RESERVE_DAY));
-        String rollingPolicy = SzTracerConfiguration
-                .getProperty(SzTracerConfiguration.TRACER_GLOBAL_ROLLING_KEY);
+        String rollingPolicy = SzTracerConfiguration.getProperty(SzTracerConfiguration.TRACER_GLOBAL_ROLLING_KEY);
 
         if (StringUtils.isBlank(rollingPolicy)) {
             rollingPolicy = TimedRollingFileAppender.DAILY_ROLLING_PATTERN;

@@ -121,8 +121,7 @@ public abstract class AbstractSzTracerStatisticReporter implements SzTracerStati
     private long globalConfiguredCycleTime(long defaultCycle) {
         long cycleTime = defaultCycle;
         try {
-            String statLogInterval = SzTracerConfiguration
-                    .getProperty(SzTracerConfiguration.STAT_LOG_INTERVAL);
+            String statLogInterval = SzTracerConfiguration.getProperty(SzTracerConfiguration.STAT_LOG_INTERVAL);
             if (StringUtils.isNotBlank(statLogInterval)) {
                 cycleTime = Long.parseLong(statLogInterval);
             }

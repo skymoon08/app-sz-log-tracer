@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * SzTracerStatisticReporterCycleTimesManager
- *
  */
 public class SzTracerStatisticReporterCycleTimesManager {
 
@@ -20,6 +19,7 @@ public class SzTracerStatisticReporterCycleTimesManager {
 
     /**
      * period: second
+     *
      * @param statisticReporter statisticReporter
      */
     public static void registerStatReporter(SzTracerStatisticReporter statisticReporter) {
@@ -31,6 +31,7 @@ public class SzTracerStatisticReporterCycleTimesManager {
 
     /**
      * The timed task uses this as the entry: Get the scheduled task with the specified cycle time
+     *
      * @param cycleTime period: second
      * @return SzTracerStatisticReporterManager Fixed-cycle task manager
      */
