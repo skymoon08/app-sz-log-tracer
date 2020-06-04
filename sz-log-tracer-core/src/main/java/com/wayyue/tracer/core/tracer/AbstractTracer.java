@@ -57,8 +57,8 @@ public abstract class AbstractTracer {
                                         SpanEncoder<SzTracerSpan> spanEncoder) {
         String digestRollingPolicy = SzTracerConfiguration.getRollingPolicy(logRollingKey);
         String digestLogReserveConfig = SzTracerConfiguration.getLogReserveConfig(logNameKey);
-        DiskReporterImpl reporter = new DiskReporterImpl(logName, digestRollingPolicy,
-                digestLogReserveConfig, spanEncoder, statReporter, logNameKey);
+        DiskReporterImpl reporter = new DiskReporterImpl(logName, digestRollingPolicy, digestLogReserveConfig,
+                spanEncoder, statReporter, logNameKey);
         return reporter;
     }
 
@@ -94,8 +94,7 @@ public abstract class AbstractTracer {
         SzTracerSpan serverSpan = szTraceContext.pop();
         SzTracerSpan clientSpan = null;
         try {
-            clientSpan = (SzTracerSpan) this.szTracer.buildSpan(operationName)
-                    .asChildOf(serverSpan).start();
+            clientSpan = (SzTracerSpan) this.szTracer.buildSpan(operationName).asChildOf(serverSpan).start();
             // Need to actively cache your own serverSpan, because: asChildOf is concerned about spanContext
             clientSpan.setParentSzTracerSpan(serverSpan);
             return clientSpan;
@@ -129,8 +128,8 @@ public abstract class AbstractTracer {
      * @param resultCode resultCode to mark success or fail
      */
     public void clientReceive(String resultCode) {
-        SzTraceContext SzTraceContext = SzTraceContextHolder.getSzTraceContext();
-        SzTracerSpan clientSpan = SzTraceContext.pop();
+        SzTraceContext szTraceContext = SzTraceContextHolder.getSzTraceContext();
+        SzTracerSpan clientSpan = szTraceContext.pop();
         if (clientSpan == null) {
             return;
         }
@@ -138,7 +137,7 @@ public abstract class AbstractTracer {
         this.clientReceiveTagFinish(clientSpan, resultCode);
         // restore parent span
         if (clientSpan.getParentSzTracerSpan() != null) {
-            SzTraceContext.push(clientSpan.getParentSzTracerSpan());
+            szTraceContext.push(clientSpan.getParentSzTracerSpan());
         }
     }
 
