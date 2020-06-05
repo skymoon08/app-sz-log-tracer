@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Activate(group = {Constants.PROVIDER, Constants.CONSUMER}, order = 1)
+@Activate(group = {Constants.PROVIDER, Constants.CONSUMER}, order = -100)
 public class DubboSzTracerFilter implements Filter {
 
     private String appName = StringUtils.EMPTY_STRING;
