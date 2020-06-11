@@ -1,1 +1,1 @@
-tracerCodec=com.wayyue.tracer.plugins.dubbo.wrapper.DataSizeCodecWrapper
+tracerCodec=com.wayue.tracer.plugins.dubbo.wrapper.DataSizeCodecWrapper

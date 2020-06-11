@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.wayyue</groupId>
+        <groupId>com.wayue</groupId>
         <artifactId>sz-log-tracer-parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../../pom.xml</relativePath>
@@ -20,7 +20,7 @@
             <version>2.6.0</version>
         </dependency>
         <dependency>
-            <groupId>com.wayyue</groupId>
+            <groupId>com.wayue</groupId>
             <artifactId>sz-log-tracer-core</artifactId>
         </dependency>
     </dependencies>

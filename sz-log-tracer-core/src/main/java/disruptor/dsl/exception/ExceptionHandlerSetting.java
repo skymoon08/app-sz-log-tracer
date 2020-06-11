@@ -24,7 +24,7 @@ public class ExceptionHandlerSetting<T> {
     }
 
     /**
-     * Specify the {@link disruptor.exception.ExceptionHandler} to use with the event handler.
+     * Specify the {@link ExceptionHandler} to use with the event handler.
      *
      * @param exceptionHandler the exception handler to use.
      */

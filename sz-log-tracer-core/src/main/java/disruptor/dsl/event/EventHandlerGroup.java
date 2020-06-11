@@ -64,7 +64,7 @@ public class EventHandlerGroup<T> {
 
     /**
      * Set up batch handlers to consume events from the ring buffer. These handlers will only process events
-     * after every {@link disruptor.event.EventProcessor} in this group has processed the event.
+     * after every {@link EventProcessor} in this group has processed the event.
      *
      * <p>This method is generally used as part of a chain. For example if the handler <code>A</code> must
      * process events before handler <code>B</code>:</p>
@@ -94,7 +94,7 @@ public class EventHandlerGroup<T> {
 
     /**
      * Set up a worker pool to handle events from the ring buffer. The worker pool will only process events
-     * after every {@link disruptor.event.EventProcessor} in this group has processed the event. Each event will be processed
+     * after every {@link EventProcessor} in this group has processed the event. Each event will be processed
      * by one of the work handler instances.
      *
      * <p>This method is generally used as part of a chain. For example if the handler <code>A</code> must
@@ -111,7 +111,7 @@ public class EventHandlerGroup<T> {
 
     /**
      * Set up batch handlers to handle events from the ring buffer. These handlers will only process events
-     * after every {@link disruptor.event.EventProcessor} in this group has processed the event.
+     * after every {@link EventProcessor} in this group has processed the event.
      *
      * <p>This method is generally used as part of a chain. For example if <code>A</code> must
      * process events before <code>B</code>:</p>
@@ -163,7 +163,7 @@ public class EventHandlerGroup<T> {
      * This allows custom event processors to have dependencies on
      * {@link disruptor.sequence.BatchEventProcessor}s created by the disruptor.
      *
-     * @return a {@link disruptor.sequence.SequenceBarrier} including all the processors in this group.
+     * @return a {@link SequenceBarrier} including all the processors in this group.
      */
     public SequenceBarrier asSequenceBarrier() {
         return disruptor.getRingBuffer().newBarrier(sequences);

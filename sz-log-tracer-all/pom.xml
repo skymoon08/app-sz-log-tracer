@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.wayyue</groupId>
+        <groupId>com.wayue</groupId>
         <artifactId>sz-log-tracer-parent</artifactId>
         <version>1.0.0</version>
     </parent>
@@ -17,25 +17,25 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.wayyue</groupId>
+            <groupId>com.wayue</groupId>
             <artifactId>sz-log-tracer-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.wayyue</groupId>
+            <groupId>com.wayue</groupId>
             <artifactId>sz-log-tracer-extension</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.wayyue</groupId>
+            <groupId>com.wayue</groupId>
             <artifactId>sz-tracer-springmvc-plugins</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.wayyue</groupId>
+            <groupId>com.wayue</groupId>
             <artifactId>sz-tracer-dubbo-plugins</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.wayyue</groupId>
+            <groupId>com.wayue</groupId>
             <artifactId>sz-tracer-httpclient-plugins</artifactId>
         </dependency>
 
