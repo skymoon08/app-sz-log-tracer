@@ -22,7 +22,7 @@ public interface WaitStrategy {
      * @param dependentSequence on which to wait.
      * @param barrier           the processor is waiting on.
      * @return the sequence that is available which may be greater than the requested sequence.
-     * @throws disruptor.exception.AlertException       if the status of the Disruptor has changed.
+     * @throws AlertException       if the status of the Disruptor has changed.
      * @throws InterruptedException if the thread is interrupted.
      * @throws java.util.concurrent.TimeoutException TimeoutException
      */

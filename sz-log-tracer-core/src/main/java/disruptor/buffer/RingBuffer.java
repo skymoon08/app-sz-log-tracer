@@ -40,7 +40,7 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * @param <E>          used to create the events within the ring buffer.
      * @return RingBuffer
      * @throws IllegalArgumentException if bufferSize is less than 1 or not a power of 2
-     * @see disruptor.sequence.MultiProducerSequencer
+     * @see MultiProducerSequencer
      */
     public static <E> RingBuffer<E> createMultiProducer(EventFactory<E> factory, int bufferSize,
                                                         WaitStrategy waitStrategy) {
@@ -72,7 +72,7 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * @param <E>          used to create the events within the ring buffer.
      * @return ring buffer
      * @throws IllegalArgumentException if bufferSize is less than 1 or not a power of 2
-     * @see disruptor.sequence.SingleProducerSequencer
+     * @see SingleProducerSequencer
      */
     public static <E> RingBuffer<E> createSingleProducer(EventFactory<E> factory, int bufferSize,
                                                          WaitStrategy waitStrategy) {
@@ -82,14 +82,14 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
     }
 
     /**
-     * Create a new single producer RingBuffer using the default wait strategy  {@link disruptor.strategy.BlockingWaitStrategy}.
+     * Create a new single producer RingBuffer using the default wait strategy  {@link BlockingWaitStrategy}.
      *
      * @param factory    used to create the events within the ring buffer.
      * @param bufferSize number of elements to create within the ring buffer.
      * @param <E>        used to create the events within the ring buffer.
      * @return ring buffer
      * @throws IllegalArgumentException if <tt>bufferSize</tt> is less than 1 or not a power of 2
-     * @see disruptor.sequence.MultiProducerSequencer
+     * @see MultiProducerSequencer
      */
     public static <E> RingBuffer<E> createSingleProducer(EventFactory<E> factory, int bufferSize) {
         return createSingleProducer(factory, bufferSize, new BlockingWaitStrategy());
@@ -98,7 +98,7 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
     /**
      * Create a new Ring Buffer with the specified producer type (SINGLE or MULTI)
      *
-     * @param producerType producer type to use {@link disruptor.dsl.ProducerType}.
+     * @param producerType producer type to use {@link ProducerType}.
      * @param factory      used to create events within the ring buffer.
      * @param bufferSize   number of elements to create within the ring buffer.
      * @param waitStrategy used to determine how to wait for new elements to become available.
@@ -126,9 +126,9 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * preallocated event to fill with data before calling {@link RingBuffer#publish(long)}.</p>
      *
      * <p>Secondly use this call when consuming data from the ring buffer.  After calling
-     * {@link disruptor.sequence.SequenceBarrier#waitFor(long)} call this method with any value greater than
+     * {@link SequenceBarrier#waitFor(long)} call this method with any value greater than
      * that your current consumer sequence and less than or equal to the value returned from
-     * the {@link disruptor.sequence.SequenceBarrier#waitFor(long)} method.</p>
+     * the {@link SequenceBarrier#waitFor(long)} method.</p>
      *
      * @param sequence for the event
      * @return the event for the given sequence
@@ -186,10 +186,10 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * }
      * </pre>
      * <p>This method will not block if there is not space available in the ring
-     * buffer, instead it will throw an {@link disruptor.exception.InsufficientCapacityException}.
+     * buffer, instead it will throw an {@link InsufficientCapacityException}.
      *
      * @return The next sequence to publish to.
-     * @throws disruptor.exception.InsufficientCapacityException if the necessary space in the ring buffer is not available
+     * @throws InsufficientCapacityException if the necessary space in the ring buffer is not available
      * @see RingBuffer#publish(long)
      * @see RingBuffer#get(long)
      */

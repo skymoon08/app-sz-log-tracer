@@ -9,6 +9,7 @@
         <artifactId>sz-log-tracer-parent</artifactId>
         <groupId>com.wayyue</groupId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>sz-log-tracer-extension</artifactId>

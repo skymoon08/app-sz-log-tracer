@@ -1,1 +1,1 @@
-dubboSzTracerFilter=com.wayyue.tracer.plugins.dubbo.DubboSzTracerFilter
+dubboSzTracerFilter=com.wayue.tracer.plugins.dubbo.DubboSzTracerFilter

@@ -49,7 +49,7 @@ public final class WorkProcessor<T> implements EventProcessor {
      * @param workHandler      is the delegate to which events are dispatched.
      * @param exceptionHandler to be called back when an error occurs
      * @param workSequence     from which to claim the next event to be worked on.  It should always be initialised
-     *                         as {@link disruptor.sequence.Sequencer#INITIAL_CURSOR_VALUE}
+     *                         as {@link Sequencer#INITIAL_CURSOR_VALUE}
      */
     public WorkProcessor(final RingBuffer<T> ringBuffer, final SequenceBarrier sequenceBarrier,
                          final WorkHandler<? super T> workHandler,

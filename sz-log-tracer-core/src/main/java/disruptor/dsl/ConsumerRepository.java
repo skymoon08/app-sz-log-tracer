@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Provides a repository mechanism to associate {@link EventHandler}s with {@link disruptor.event.EventProcessor}s
+ * Provides a repository mechanism to associate {@link EventHandler}s with {@link EventProcessor}s
  *
  * @param <T> the type of the {@link EventHandler}
  */

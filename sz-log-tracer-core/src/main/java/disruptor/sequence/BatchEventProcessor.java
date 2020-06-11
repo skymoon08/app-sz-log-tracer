@@ -16,9 +16,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Convenience class for handling the batching semantics of consuming entries from a {@link disruptor.buffer.RingBuffer}
- * and delegating the available events to an {@link disruptor.handler.EventHandler}.
+ * and delegating the available events to an {@link EventHandler}.
  * <p>
- * If the {@link disruptor.handler.EventHandler} also implements {@link disruptor.strategy.LifecycleAware} it will be notified just after the thread
+ * If the {@link EventHandler} also implements {@link LifecycleAware} it will be notified just after the thread
  * is started and just before the thread is shutdown.
  *
  * @param <T> event implementation storing the data for sharing during exchange or parallel coordination of an event.

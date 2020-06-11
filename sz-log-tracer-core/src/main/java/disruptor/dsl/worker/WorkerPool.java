@@ -93,7 +93,7 @@ public final class WorkerPool<T> {
      * Start the worker pool processing events in sequence.
      *
      * @param executor providing threads for running the workers.
-     * @return the {@link disruptor.buffer.RingBuffer} used for the work queue.
+     * @return the {@link RingBuffer} used for the work queue.
      * @throws IllegalStateException if the pool has already been started and not halted yet
      */
     public RingBuffer<T> start(final Executor executor) {
