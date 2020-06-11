@@ -158,5 +158,7 @@ public class CommonSpanTags {
      * LOAD_TEST is the span's stat log key for load.test
      */
     public static final String LOAD_TEST = "load.test";
-
+    public static final String MSG_TOPIC               = "msg.topic";
+    public static final String MSG_ID                  = "msg.id";
+    public static final String MSG_CHANNEL             = "msg.channel";
 }

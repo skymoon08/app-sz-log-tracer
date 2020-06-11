@@ -6,15 +6,11 @@
         <artifactId>sz-log-tracer-parent</artifactId>
         <groupId>com.wayyue</groupId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sz-log-tracer-all</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
-
-    <name>sz-log-tracer-parent</name>
+    <artifactId>sz-tracer-spring-message-plugins</artifactId>
 
     <dependencies>
         <dependency>
@@ -25,27 +21,12 @@
             <groupId>com.wayyue</groupId>
             <artifactId>sz-log-tracer-extension</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-springmvc-plugins</artifactId>
-        </dependency>
 
         <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-dubbo-plugins</artifactId>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+            <version>5.1.0.RELEASE</version>
+            <optional>true</optional>
         </dependency>
-
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-httpclient-plugins</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.wayyue</groupId>
-            <artifactId>sz-tracer-spring-message-plugins</artifactId>
-        </dependency>
-
-
     </dependencies>
-
 </project>

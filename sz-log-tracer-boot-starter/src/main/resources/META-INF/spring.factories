@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wayue.tracer.boot.springmvc.configuration.OpenTracingSpringMvcAutoConfiguration
+com.wayue.tracer.boot.springmvc.configuration.OpenTracingSpringMvcAutoConfiguration,\
+com.wayue.tracer.boot.message.configuration.SpringMessageAutoConfiguration

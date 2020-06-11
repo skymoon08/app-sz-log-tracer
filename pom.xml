@@ -18,6 +18,7 @@
         <module>sz-log-tracer-all</module>
         <module>sz-log-tracer-extension</module>
         <module>sz-log-tracer-boot-starter</module>
+        <module>sz-log-tracer-plugins/sz-tracer-spring-message-plugins</module>
     </modules>
 
 
@@ -64,6 +65,11 @@
             <dependency>
                 <groupId>com.wayyue</groupId>
                 <artifactId>sz-tracer-httpclient-plugins</artifactId>
+                <version>${sz.tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.wayyue</groupId>
+                <artifactId>sz-tracer-spring-message-plugins</artifactId>
                 <version>${sz.tracer.version}</version>
             </dependency>
             <dependency>
